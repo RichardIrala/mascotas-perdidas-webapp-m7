@@ -39,7 +39,7 @@ export const instanciar_header = () => {
                    </li>
                 </ul>
               </nav>
-              <div>richardirala@hota.com</div>
+              <div>correorandom@hotmail.com</div>
             </div>
             <img class="menu-burger" src=${menuBurger} alt="menu-burger">
         </header>
@@ -58,27 +58,35 @@ export const instanciar_header = () => {
             justify-content: space-between;
             background: #e05252;
             padding: 13px 20px;
+            align-items: center;
         }
 
        .huella-icon {
         height: 40px;
         cursor:pointer;
        }
-
        .menu-burger-container {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: space-between;
-          padding: 15vh 0;
-          background: rgba(0,255,255,0.9);
-          min-width: 100%;
-          min-height: 100vh;
-          position: absolute;
-          top: 0;
-          left: 0;
-          animation: burger-animation 2s;
+        display: flex;
+        gap: 20px;
        }
+
+       @media (max-width: 900px) {
+          .menu-burger-container {
+            gap: 0;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15vh 0;
+            background: rgba(0,255,255,0.9);
+            min-width: 100%;
+            min-height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: burger-animation 2s;
+        }
+       }
+
        @keyframes burger-animation {
         0% {
           left: -100%
@@ -88,35 +96,62 @@ export const instanciar_header = () => {
         }
        }
 
-       .menu-burger__nav {
-       }
        .menu-burger__nav__ul {
+        display: flex;
+        list-style-type: none;
+        gap: 20px;
+       }
+
+       @media (max-width: 900px) {
+        .menu-burger__nav__ul {
           padding: 0;
-          display: flex;
           flex-direction: column;
-          list-style-type: none;
           text-align: center;
-          font-size: 36px;
           gap: 45px;
+        }
        }
        .menu-burger--content {
+          color: #000000;
           text-decoration: none;
+          font-size: 36px;
+          ${state.setFont(700)}
+       }
+       @media(min-width: 900px) {
+        .menu-burger--content {
+          font-size: 20px;
+        }
+       }
+       .menu-burger--content:hover {
+        color: #3e3535;
+        border-bottom: solid #000000;
        }
        .menu-burger, .close-menu-burger {
           height: 40px;
           cursor: pointer;
        }
+      
        .close-menu-burger {
         position: absolute;
         top: 13px;
         right: 20px;
        }
-
-       .display-none {
+       @media (min-width: 900px) {
+        .menu-burger {
           display: none;
+        }
+
+        .close-menu-burger {
+          display: none;
+        }
+       }
+
+       @media (max-width: 900px) {
+          .display-none {
+            display: none;
+          }
        }
       `;
-
+        //Ese display none, podria tener otro nombre describiendo a partir de que window size afecta. EL DE ARRIBA
         this.shadow.appendChild(style);
         //Escuchador de eventos
         this.addListeners();
