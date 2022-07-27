@@ -1,4 +1,4 @@
-(() => {
+export const instanciar_pet_card = () => {
   const legIcon = require("../assets/leg-icon.svg");
   customElements.define(
     "pet-card-el",
@@ -72,4 +72,4 @@
       addListeners() {}
     }
   );
-})();
+};

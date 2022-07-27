@@ -1,8 +1,11 @@
 import { Router } from "@vaadin/router";
+import { state } from "../state";
 
-(() => {
+export const instanciar_header = () => {
   const legIcon = require("../assets/leg-icon.svg");
   const menuBurger = require("../assets/menu-burger-icon.svg");
+  const closeMenuBurger = require("../assets/close-icon.svg");
+
   customElements.define(
     "header-el",
     class extends HTMLElement {
@@ -21,12 +24,12 @@ import { Router } from "@vaadin/router";
             <img class="huella-icon" src=${legIcon} alt="Huella"> 
             <div class="menu-burger-container display-none">
               <div>
-                <img class="close-menu-burger" src=${menuBurger} alt="close-menu">
+                <img class="close-menu-burger" src=${closeMenuBurger} alt="close-menu">
               </div>
               <nav class="menu-burger__nav">
                 <ul class="menu-burger__nav__ul">
                   <li>
-                    <a class="menu-burger--content" href="/my-profile">Mis datos</a>
+                    <a class="mis-datos menu-burger--content" href="">Mis datos</a>
                   </li>
                   <li>
                     <a class="menu-burger--content" href="">Mis mascotas reportadas</a>
@@ -74,7 +77,17 @@ import { Router } from "@vaadin/router";
           position: absolute;
           top: 0;
           left: 0;
+          animation: burger-animation 2s;
        }
+       @keyframes burger-animation {
+        0% {
+          left: -100%
+        }
+        100% {
+          left: 0
+        }
+       }
+
        .menu-burger__nav {
        }
        .menu-burger__nav__ul {
@@ -93,6 +106,11 @@ import { Router } from "@vaadin/router";
           height: 40px;
           cursor: pointer;
        }
+       .close-menu-burger {
+        position: absolute;
+        top: 13px;
+        right: 20px;
+       }
 
        .display-none {
           display: none;
@@ -105,11 +123,12 @@ import { Router } from "@vaadin/router";
       }
 
       addListeners() {
-        const huellaIcon = this.shadow.querySelector(".huella-icon");
-        const menuBurgerEl = this.shadow.querySelector(".menu-burger");
-        const closeMenuBurgerEl =
-          this.shadow.querySelector(".close-menu-burger");
-        const burgerNavEl = this.shadow.querySelector(".menu-burger-container");
+        const $ = (selector) => this.shadow.querySelector(selector);
+        const huellaIconEl = $(".huella-icon");
+        const menuBurgerEl = $(".menu-burger");
+        const closeMenuBurgerEl = $(".close-menu-burger");
+        const burgerNavEl = $(".menu-burger-container");
+        const aTagMisDatos = $(".mis-datos");
 
         menuBurgerEl.addEventListener("click", () => {
           if (burgerNavEl.classList.contains("display-none")) {
@@ -122,10 +141,15 @@ import { Router } from "@vaadin/router";
             burgerNavEl.classList.remove("display-none");
           } else burgerNavEl.classList.add("display-none");
         });
-        huellaIcon.addEventListener("click", () => {
+        aTagMisDatos.addEventListener("click", () => {
+          state.checkUserToken();
+          console.log("hola");
+        });
+
+        huellaIconEl.addEventListener("click", () => {
           Router.go("/");
         });
       }
     }
   );
-})();
+};

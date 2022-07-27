@@ -1,4 +1,4 @@
-(() => {
+export const instanciar_button_rose = () => {
   customElements.define(
     "button-rose-el",
     class extends HTMLElement {
@@ -47,4 +47,4 @@
       addListeners() {}
     }
   );
-})();
+};

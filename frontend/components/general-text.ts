@@ -1,4 +1,4 @@
-(() => {
+export const instanciar_general_text = () => {
   customElements.define(
     "general-text-el",
     class extends HTMLElement {
@@ -39,4 +39,4 @@
       addListeners() {}
     }
   );
-})();
+};

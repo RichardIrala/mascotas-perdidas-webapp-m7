@@ -1,4 +1,4 @@
-(() => {
+export const instanciar_title = () => {
   customElements.define(
     "title-el",
     class extends HTMLElement {
@@ -39,4 +39,4 @@
       addListeners() {}
     }
   );
-})();
+};

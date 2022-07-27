@@ -1,4 +1,4 @@
-(() => {
+export const instanciar_input = () => {
   customElements.define(
     "input-el",
     class extends HTMLElement {
@@ -8,11 +8,12 @@
         this.render();
       }
       render() {
+        //Este INPUT component no me sirve de nada. Ya que cada input necesita su name
         const style = document.createElement("style");
         this.shadow.innerHTML = `
                 <label class="label">
                   <span>${this.textContent}</span>
-                  <input class="input-email" name="email">
+                  <input class="input-email" name="email" type="email">
                 </label>
             `;
         style.innerHTML = `
@@ -37,4 +38,4 @@
       addListeners() {}
     }
   );
-})();
+};
