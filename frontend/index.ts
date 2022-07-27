@@ -13,6 +13,7 @@ import { instanciar_pet_card } from "./components/pet-card";
 import { instanciar_title } from "./components/title";
 //router
 import "./router/index";
+import { instanciar_signup_page } from "./pages/signup";
 
 (() => {
   instanciarComponentes();
@@ -25,6 +26,7 @@ function instanciarPages() {
   instanciar_login_email_page();
   instanciar_geoloc_page();
   instanciar_password_page();
+  instanciar_signup_page();
 }
 
 function instanciarComponentes() {
