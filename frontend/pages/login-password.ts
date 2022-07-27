@@ -1,4 +1,7 @@
-(() => {
+import { crearInput, inputCss } from "../funcional-components/input";
+
+export const instanciar_password_page = () => {
+  //customElement instancia
   customElements.define(
     "login-password-el",
     class extends HTMLElement {
@@ -16,7 +19,7 @@
                         <title-el>Ingresar</title-el>
                     </div>
                     <form class="form d-flex flex-dir-column align-i-center gap20">
-                      <input-el>Contraseña</input-el>
+                      ${crearInput("contraseña", "contraseña", "password")}
                       <button class="form__button" type="submit">
                         <button-rose-el>Siguiente</button-rose-el>
                       </button>
@@ -58,6 +61,7 @@
                 padding: 0;
                 border: none;
               }
+              ${inputCss()}
               `;
         this.shadow.appendChild(style);
         this.addListeners();
@@ -65,4 +69,4 @@
       addListeners() {}
     }
   );
-})();
+};

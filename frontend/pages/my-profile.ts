@@ -1,4 +1,4 @@
-(() => {
+export const instanciar_login_email_page = () => {
   customElements.define(
     "my-profile-el",
     class extends HTMLElement {
@@ -38,4 +38,4 @@
       addListeners() {}
     }
   );
-})();
+};

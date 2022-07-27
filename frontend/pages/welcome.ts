@@ -1,6 +1,6 @@
 import { Router } from "@vaadin/router";
 
-(() => {
+export const instanciar_welcome_page = () => {
   customElements.define(
     "welcome-el",
     class extends HTMLElement {
@@ -41,20 +41,20 @@ import { Router } from "@vaadin/router";
         this.addListeners();
       }
       addListeners() {
-        const aceptoGeoLoc = (position) => {
-          console.log(position.coords.latitude, position.coords.longitude);
-          Router.go("/welcome");
-        };
-        const noAceptoGeoLoc = () => {
-          console.error("Acceso a la ubicación denegado");
-        };
-        if (!!navigator.geolocation) {
-          window.navigator.geolocation.getCurrentPosition(
-            aceptoGeoLoc,
-            noAceptoGeoLoc
-          );
-        }
+        // const aceptoGeoLoc = (position) => {
+        //   console.log(position.coords.latitude, position.coords.longitude);
+        //   Router.go("/welcome");
+        // };
+        // const noAceptoGeoLoc = () => {
+        //   console.error("Acceso a la ubicación denegado");
+        // };
+        // if (!!navigator.geolocation) {
+        //   window.navigator.geolocation.getCurrentPosition(
+        //     aceptoGeoLoc,
+        //     noAceptoGeoLoc
+        //   );
+        // }
       }
     }
   );
-})();
+};

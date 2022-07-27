@@ -1,6 +1,6 @@
 import { Router } from "@vaadin/router";
 
-(() => {
+export const instanciar_geoloc_page = () => {
   customElements.define(
     "get-geolocation-el",
     class extends HTMLElement {
@@ -66,7 +66,6 @@ import { Router } from "@vaadin/router";
           const noAceptoGeoLoc = () => {
             console.error("Acceso a la ubicación denegado");
           };
-
           if (!!navigator.geolocation) {
             window.navigator.geolocation.getCurrentPosition(
               aceptoGeoLoc,
@@ -77,4 +76,4 @@ import { Router } from "@vaadin/router";
       }
     }
   );
-})();
+};
