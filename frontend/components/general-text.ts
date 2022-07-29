@@ -1,3 +1,5 @@
+import { state } from "../state";
+
 export const instanciar_general_text = () => {
   customElements.define(
     "general-text-el",
@@ -14,7 +16,7 @@ export const instanciar_general_text = () => {
           /*html*/
           `
                   <h2 class="text">
-                      ${this.textContent}
+                      ${this.textContent.toUpperCase()}
                   </h2>
                   `;
 
@@ -28,7 +30,8 @@ export const instanciar_general_text = () => {
                   
                   .text {
                     font-size: 20px;
-                    font-weight: 500;
+                    text-align: center;
+                    ${state.setFont(500)}
                   }
                  `;
 
