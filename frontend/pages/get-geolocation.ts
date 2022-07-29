@@ -47,6 +47,7 @@ export const instanciar_geoloc_page = () => {
             display: flex;
             flex-direction: column;
             gap: 20px;
+            align-items: center;
         }
         .button-get-geolocation {
         }

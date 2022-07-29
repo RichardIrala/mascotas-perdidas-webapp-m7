@@ -21,11 +21,12 @@ export const instanciar_user_email = () => {
                       <title-el>Ingresar</title-el>
                   </div>
                   <form class="form d-flex flex-dir-column align-i-center gap20">
-                    ${crearInput("Juguemos bro", "email", "email")}
+                    ${crearInput("EMAIL", "email", "email")}
                     <button class="form__button" type="submit">
                       <button-rose-el>Siguiente</button-rose-el>
                     </button>
                   </form>
+                  <div id="milanesa"></div>
                 </div>
             `;
         style.innerHTML = `
@@ -94,7 +95,7 @@ export const instanciar_user_email = () => {
                 console.log(
                   "Este email existe en la db. Por favor ingrese su contraseña"
                 );
-                Router.go("login-password");
+                Router.go("/signup");
               } else {
                 console.error("Este email no existe");
                 alert("Este email no existe");
