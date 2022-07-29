@@ -38,6 +38,9 @@ export const instanciar_button_rose = () => {
                   cursor: pointer;
                   font-weight: 700;
               }
+              .button:active {
+                background: #c199bd;
+              }
              `;
 
         this.shadow.appendChild(style);
