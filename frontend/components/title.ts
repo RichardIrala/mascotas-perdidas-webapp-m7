@@ -1,3 +1,5 @@
+import { state } from "../state";
+
 export const instanciar_title = () => {
   customElements.define(
     "title-el",
@@ -28,7 +30,7 @@ export const instanciar_title = () => {
                 
                 .title {
                   font-size: 40px;
-                  font-weight: 700;
+                  ${state.setFont(700)}
                 }
                `;
 
