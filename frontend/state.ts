@@ -1,8 +1,9 @@
 import { Router } from "@vaadin/router";
 
 export const state = {
-  data: {},
-  userData: {},
+  data: {
+    userData: {},
+  },
   listeners: [],
 
   init() {
@@ -21,7 +22,7 @@ export const state = {
     return this.data;
   },
   getUserData() {
-    return this.userData;
+    return this.getState().userData;
   },
   setState(newState) {
     this.data = newState;
@@ -54,5 +55,20 @@ export const state = {
       );
       return;
     }
+  },
+
+  setUserEmail(email: string) {
+    const cs = this.getState();
+
+    cs.userData.email = email;
+
+    this.setState(cs);
+  },
+  saveUserToken(token: string) {
+    const cs = this.getState();
+
+    cs.userData.token = token;
+
+    this.setState(cs);
   },
 };
