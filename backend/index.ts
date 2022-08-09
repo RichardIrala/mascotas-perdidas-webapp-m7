@@ -1,6 +1,5 @@
 import { sequelize } from "./database";
-import { app } from "./router/endpoints";
-
+import { app } from "./routes/endpoints";
 (async function () {
   const port = process.env.PORT || 3000;
   try {
