@@ -14,11 +14,21 @@ import { instanciar_title } from "./components/title";
 //router
 import "./router/index";
 import { instanciar_signup_page } from "./pages/signup";
+import { state } from "./state";
 
 (() => {
   instanciarComponentes();
   instanciarPages();
+  iniciarState();
 })();
+
+function iniciarState() {
+  state.init();
+  sessionStorage.setItem("mod7-desafio", JSON.stringify(state.getState()));
+  state.subscribe(() => {
+    sessionStorage.setItem("mod7-desafio", JSON.stringify(state.getState()));
+  });
+}
 
 function instanciarPages() {
   instanciar_user_email();
@@ -37,11 +47,3 @@ function instanciarComponentes() {
   instanciar_pet_card();
   instanciar_title();
 }
-// (function () {
-//     /* const root = document.querySelector(".root"); */
-//     state.init();
-//     sessionStorage.setItem("mod6-desafio", JSON.stringify(state.getState()));
-//     state.subscribe(() => {
-//       sessionStorage.setItem("mod6-desafio", JSON.stringify(state.getState()));
-//     });
-//   })();
