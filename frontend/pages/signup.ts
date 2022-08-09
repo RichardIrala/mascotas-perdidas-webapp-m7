@@ -1,4 +1,6 @@
 import { crearInput, inputCss } from "../funcional-components/input";
+import { state } from "../state";
+import { api } from "../utils/api";
 export const instanciar_signup_page = () => {
   //instancia del customElement nuevo
   customElements.define(
@@ -16,7 +18,7 @@ export const instanciar_signup_page = () => {
                 <header-el></header-el>
                 <div class="d-flex flex-dir-column gap20">
                   <div class="title-container">
-                      <title-el>Ingresar</title-el>
+                      <title-el>Ingrese los datos para registrarse</title-el>
                   </div>
                   <form class="form d-flex flex-dir-column align-i-center gap20">
                     ${crearInput("nombre", "name", "text", "margin-b50")}
@@ -87,10 +89,26 @@ export const instanciar_signup_page = () => {
 
         form.addEventListener("submit", (e) => {
           e.preventDefault();
+          const email = state.getUserData().email;
           const nombre = getOneFormData(e, "name");
           const password = getOneFormData(e, "password");
           const repeated_password = getOneFormData(e, "repeated_password");
-          console.log(nombre, password, repeated_password);
+          if (password !== repeated_password) {
+            console.error("Las contraseñas no coinciden");
+            return;
+          }
+
+          if (nombre && password && repeated_password && email) {
+            api.authRegister(email, password, nombre).then((res) => {
+              res.email
+                ? api.authLogin(res.email, password).then((res) => {
+                    state.saveUserToken(res.token);
+                  })
+                : console.error(res.message);
+            });
+          } else {
+            console.error("No se llenaron todas las casillas");
+          }
         });
       }
     }

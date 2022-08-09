@@ -1,5 +1,7 @@
 import { Router } from "@vaadin/router";
 import { crearInput, inputCss } from "../funcional-components/input";
+import { state } from "../state";
+import { api } from "../utils/api";
 
 export const instanciar_user_email = () => {
   //instancia del customElement nuevo
@@ -81,26 +83,19 @@ export const instanciar_user_email = () => {
         form.addEventListener("submit", (e) => {
           e.preventDefault();
           const email = getOneFormData(e, "email");
-          const raw = JSON.stringify({ email });
-          fetch("/users/exist", {
-            method: "post",
-            body: raw,
-            headers: {
-              "content-type": "application/json",
-            },
-          })
-            .then((res) => res.json())
-            .then((resjson) => {
-              if (resjson.exist) {
-                console.log(
-                  "Este email existe en la db. Por favor ingrese su contraseña"
-                );
-                Router.go("/signup");
-              } else {
-                console.error("Este email no existe");
-                alert("Este email no existe");
-              }
-            });
+
+          api.userExist(email).then((res: any) => {
+            state.setUserEmail(email);
+            if (res.exist) {
+              console.log(
+                "Este email existe en la db. Por favor ingrese su contraseña"
+              );
+              Router.go("/login-password");
+            } else {
+              console.error("Este email no existe");
+              Router.go("/signup");
+            }
+          });
         });
       }
     }

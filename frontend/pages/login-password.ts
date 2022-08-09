@@ -1,4 +1,6 @@
 import { crearInput, inputCss } from "../funcional-components/input";
+import { state } from "../state";
+import { api } from "../utils/api";
 
 export const instanciar_password_page = () => {
   //customElement instancia
@@ -66,7 +68,41 @@ export const instanciar_password_page = () => {
         this.shadow.appendChild(style);
         this.addListeners();
       }
-      addListeners() {}
+      addListeners() {
+        this.shadow.querySelector(".form").addEventListener("submit", (e) => {
+          e.preventDefault();
+          const getOneFormData = (event: Event, inputName: string) => {
+            return event.target[inputName].value;
+          };
+          const email = state.getUserData().email;
+          const password = getOneFormData(e, "contraseña");
+
+          loguearse(email, password);
+        });
+      }
     }
   );
 };
+
+function loguearse(email: string, password: string) {
+  if (email && password) {
+    api
+      .authLogin(email, password)
+      .then((res) => {
+        if (res.token) {
+          state.saveUserToken(res.token);
+          console.log("token agregado");
+        } else {
+          console.error(res.message);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  //
+  else {
+    alert("email o contraseña incorrectos.");
+    return;
+  }
+}
