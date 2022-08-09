@@ -66,8 +66,9 @@ export const instanciar_header = () => {
         cursor:pointer;
        }
        .menu-burger-container {
-        display: flex;
-        gap: 20px;
+         display: flex;
+         gap: 20px;
+         z-index: 100;
        }
 
        @media (max-width: 900px) {
@@ -178,7 +179,6 @@ export const instanciar_header = () => {
         });
         aTagMisDatos.addEventListener("click", () => {
           state.checkUserToken();
-          console.log("hola");
         });
 
         huellaIconEl.addEventListener("click", () => {
