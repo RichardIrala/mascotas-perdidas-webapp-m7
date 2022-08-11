@@ -92,6 +92,7 @@ function loguearse(email: string, password: string) {
         if (res.token) {
           state.saveUserToken(res.token);
           console.log("token agregado");
+          state.checkUserToken("/welcome");
         } else {
           console.error(res.message);
         }

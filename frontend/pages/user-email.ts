@@ -83,7 +83,10 @@ export const instanciar_user_email = () => {
         form.addEventListener("submit", (e) => {
           e.preventDefault();
           const email = getOneFormData(e, "email");
-
+          if (!email) {
+            console.error("Ingrese un email.");
+            return;
+          }
           api.userExist(email).then((res: any) => {
             state.setUserEmail(email);
             if (res.exist) {
