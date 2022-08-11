@@ -5,6 +5,7 @@ import { app } from "./routes/endpoints";
   try {
     await sequelize.authenticate();
     console.log("Autenticación completada");
+    await sequelize.sync({ force: true });
     app.listen(port, () => {
       console.log("escuchando en el puerto 3000");
     });
