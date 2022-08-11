@@ -39,12 +39,14 @@ export const instanciar_header = () => {
                    </li>
                 </ul>
               </nav>
-              <div>correorandom@hotmail.com</div>
+              <div class="logued-name">${
+                state.getUserData().logued ? state.getUserData().email : "..."
+              }</div>
             </div>
             <img class="menu-burger" src=${menuBurger} alt="menu-burger">
         </header>
         `;
-
+        //ARRIBA ESE USERDATA EMAIL, no va así. Es mockup, fijarse si necesita ajustes
         style.innerHTML =
           /*css*/
           `
@@ -98,6 +100,7 @@ export const instanciar_header = () => {
        }
 
        .menu-burger__nav__ul {
+        text-align: right;
         display: flex;
         list-style-type: none;
         gap: 20px;
@@ -151,6 +154,16 @@ export const instanciar_header = () => {
             display: none;
           }
        }
+
+       .logued-name {
+          color: #000000;
+          display: flex;
+          align-items: center;
+          background: #ffffff;
+          border-radius: 4px;
+          padding: 2px 10px;
+          ${state.setFont(500)}
+       }
       `;
         //Ese display none, podria tener otro nombre describiendo a partir de que window size afecta. EL DE ARRIBA
         this.shadow.appendChild(style);
@@ -178,7 +191,7 @@ export const instanciar_header = () => {
           } else burgerNavEl.classList.add("display-none");
         });
         aTagMisDatos.addEventListener("click", () => {
-          state.checkUserToken();
+          state.checkUserToken("/my-profile");
         });
 
         huellaIconEl.addEventListener("click", () => {
