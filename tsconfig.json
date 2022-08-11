@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "ES6",
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "module": "commonjs"
