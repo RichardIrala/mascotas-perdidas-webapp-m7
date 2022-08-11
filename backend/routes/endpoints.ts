@@ -2,6 +2,7 @@ import * as express from "express";
 import * as path from "path";
 import { auth, getMe, token } from "../controllers/Auth";
 import { userExist } from "../controllers/User";
+import { sequelize } from "../database";
 import { authMiddleware } from "../middlewares/authMiddleware";
 
 export const app = express();
@@ -20,6 +21,11 @@ app.post("/users/exist", async (req, res) => {
   } catch (error) {
     res.json({ message: error.message });
   }
+});
+
+app.get("/sync-force", async (req, res) => {
+  await sequelize.sync({ force: true });
+  res.json({ message: "sync completo" });
 });
 
 //Crear un usuario o recuperarlo (cambiarlo a 2 endpoints)
