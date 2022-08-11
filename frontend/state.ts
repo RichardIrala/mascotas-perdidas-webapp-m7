@@ -35,19 +35,19 @@ export const state = {
     this.listeners.push(callback);
   },
 
-  checkUserToken() {
+  checkUserToken(route: string) {
     const userData = this.getUserData();
     if (!userData.token) {
       Router.go("/login");
     } else {
-      Router.go("/");
+      Router.go(route);
     }
   },
   setFont(fontWeight: Number) {
     if (fontWeight == 700 || fontWeight == 500 || fontWeight == 400) {
       return `
         font-family: 'Poppins', sans-serif;
-        font-weight: ${fontWeight}
+        font-weight: ${fontWeight};
       `;
     } else {
       console.error(
@@ -68,7 +68,16 @@ export const state = {
     const cs = this.getState();
 
     cs.userData.token = token;
+    (cs.userData.logued = true), this.setState(cs);
+  },
+
+  setUserName(userName: string) {
+    const cs = this.getState();
+    cs.userData.name = userName;
 
     this.setState(cs);
+  },
+  getUserName() {
+    return this.getUserData().name;
   },
 };
