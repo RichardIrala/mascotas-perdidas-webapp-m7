@@ -8,7 +8,7 @@ export const User = sequelize.define("User", {
     allowNull: false,
   },
 });
-//estudiar esta pàrte por mi mismo porque tiene fallos, con el video de marce
+
 // export class User extends Model {}
 // User.init(
 //   {
