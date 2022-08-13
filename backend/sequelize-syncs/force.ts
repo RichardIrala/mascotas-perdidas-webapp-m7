@@ -1,9 +1,13 @@
 import { sequelize } from "../database";
+import { Pet, Auth, Report, User } from "../models/index";
 
 (async () => {
   try {
-    await sequelize.sync({ force: true });
-    console.log("Sincronización completada");
+    await Auth.sync({ force: true });
+    await Pet.sync({ force: true });
+    await Report.sync({ force: true });
+    await User.sync({ force: true });
+    console.log("Sincronización completada /force");
   } catch (error) {
     console.error(error.message);
   }
