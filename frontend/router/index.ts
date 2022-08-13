@@ -9,5 +9,6 @@ import { Router } from "@vaadin/router";
     { path: "/login", component: "user-email-el" },
     { path: "/login-password", component: "login-password-el" },
     { path: "/signup", component: "signup-el" },
+    { path: "/pets/new-lost-pet", component: "new-lost-pet-el" },
   ]);
 })();
