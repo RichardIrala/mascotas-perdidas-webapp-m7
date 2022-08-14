@@ -1,6 +1,7 @@
 import * as express from "express";
 import * as path from "path";
 import { auth, getMe, token } from "../controllers/Auth";
+import { getPets, getPetsCercaDe, newPet } from "../controllers/pet-controller";
 import { userExist } from "../controllers/User";
 import { sequelize } from "../database";
 import { authMiddleware } from "../middlewares/authMiddleware";
@@ -9,7 +10,7 @@ export const app = express();
 
 const frontend = path.resolve(__dirname, "../../dist");
 
-app.use(express.json());
+app.use(express.json({ limit: "20mb" }));
 app.use(express.static(frontend));
 
 //Existe el usuario?
@@ -28,7 +29,7 @@ app.get("/sync-force", async (req, res) => {
   res.json({ message: "sync completo" });
 });
 
-//Crear un usuario o recuperarlo (cambiarlo a 2 endpoints)
+//Crear un usuario
 app.post("/auth", async (req, res) => {
   try {
     const { email, firstName, password } = req.body;
@@ -59,6 +60,44 @@ app.get("/users/me", authMiddleware, async (req, res) => {
   } catch (error) {
     res.json({ message: error.message });
   }
+});
+
+//EDNPOINTS DE MASCOTAS
+app.post("/pets", async (req, res) => {
+  const { name, last_location, lat, lng, description, pictureURL } = req.body;
+  if (lat > 90 || lat < -90 || lng > 90 || lat < -90) {
+    res.json({
+      message:
+        "Los valores para la latitud y la longitud solo pueden ser desde -90 hasta 90.",
+    });
+    return;
+  }
+  try {
+    //Devuelve la nueva mascota
+    let pet = await newPet(
+      name,
+      pictureURL,
+      last_location,
+      lat,
+      lng,
+      description
+    );
+    res.json(pet);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+app.get("/pets", async (req, res) => {
+  const pets = await getPets();
+  res.json(pets);
+});
+
+app.get("/pets/cerca-de", async (req, res) => {
+  const { lat, lng } = req.query;
+  const pets = await getPetsCercaDe(lat, lng);
+  console.log(pets);
+  res.json(pets);
 });
 
 //todo lo que no coincida con una ruta, devuelve el index.html
