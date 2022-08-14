@@ -15,6 +15,7 @@ import { instanciar_title } from "./components/title";
 import "./router/index";
 import { instanciar_signup_page } from "./pages/signup";
 import { state } from "./state";
+import { instanciar_new_lost_pet_page } from "./pages/new-lost-pet";
 
 (() => {
   instanciarComponentes();
@@ -37,6 +38,7 @@ function instanciarPages() {
   instanciar_geoloc_page();
   instanciar_password_page();
   instanciar_signup_page();
+  instanciar_new_lost_pet_page();
 }
 
 function instanciarComponentes() {
