@@ -35,4 +35,31 @@ export const api = {
 
     return resJson;
   },
+  async newPetLost(
+    name: string,
+    last_location: string,
+    lat: number,
+    lng: number,
+    pictureURL: string,
+    description?: string
+  ) {
+    const raw = JSON.stringify({
+      name,
+      last_location,
+      lat,
+      lng,
+      pictureURL,
+      description,
+    });
+
+    const res = await fetch("/pets", {
+      method: "POST",
+      body: raw,
+      headers: { "content-type": "application/json" },
+    });
+
+    const resJson = await res.json();
+
+    return resJson;
+  },
 };
