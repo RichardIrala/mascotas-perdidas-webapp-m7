@@ -1,5 +1,6 @@
 import { Router } from "@vaadin/router";
 import { initMap } from "../components/mapbox";
+import { api } from "../utils/api";
 
 export const instanciar_welcome_page = () => {
   customElements.define(
@@ -23,10 +24,7 @@ export const instanciar_welcome_page = () => {
                 <title-el>Mascotas perdidas cerca tuyo</title-el>
             </div>
             <div class="pet-cards">
-                <pet-card-el></pet-card-el>
-                <pet-card-el></pet-card-el>
-                <pet-card-el></pet-card-el>
-                <pet-card-el></pet-card-el>
+               
             </div>
         `;
         style.innerHTML = `
@@ -64,6 +62,45 @@ export const instanciar_welcome_page = () => {
         //     noAceptoGeoLoc
         //   );
         // }
+        const mascotasCercaMio = async () => {
+          const petsCardsContainer = this.querySelector(".pet-cards");
+          const aceptoGeoLoc = (position) => {
+            // console.log(position);
+            api
+              .mascotasCercaDe(
+                position.coords.latitude,
+                position.coords.longitude
+              )
+              .then((res) => {
+                const petsHtml = res
+                  .map((pet) => {
+                    console.log(pet);
+                    console.log(pet.last_location.toString(), "ultima ubi");
+                    return /*html*/ `<pet-card-el 
+                    idPet="${pet.id.toString()}"
+                    name="${pet.name.toString()}"
+                    description="${pet.description.toString()}"
+                    pictureURL="${pet.pictureURL.toString()}"
+                    last_location="${pet.last_location.toString()}"
+                    founded="${pet.founded.toString()}"></pet-card-el>`;
+                  })
+                  .join("");
+                petsCardsContainer.innerHTML = petsHtml;
+              });
+          };
+
+          const noAceptoGeoLoc = () => {
+            console.error("Acceso a la ubicación denegado");
+          };
+
+          if (!!navigator.geolocation) {
+            window.navigator.geolocation.getCurrentPosition(
+              aceptoGeoLoc,
+              noAceptoGeoLoc
+            );
+          }
+        };
+        mascotasCercaMio();
       }
       renderMapbox() {
         initMap("mapboxmap");
