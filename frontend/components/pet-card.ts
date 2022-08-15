@@ -4,11 +4,20 @@ export const instanciar_pet_card = () => {
     "pet-card-el",
     class extends HTMLElement {
       shadow = this.attachShadow({ mode: "open" });
+
       constructor() {
         super();
         this.render();
       }
+
       render() {
+        const idPet = this.getAttribute("idPet");
+        const name = this.getAttribute("name");
+        const description = this.getAttribute("description");
+        const pictureURL = this.getAttribute("pictureURL");
+        const last_location = this.getAttribute("last_location");
+        const founded = this.getAttribute("founded");
+
         const style = document.createElement("style");
 
         this.shadow.innerHTML =
@@ -16,12 +25,12 @@ export const instanciar_pet_card = () => {
           `
             <div class="card-container">
                 <div class="pet-pic-container">
-                    <img class="pet-pic-container--img" src=${legIcon} alt="Mascota">
+                    <img class="pet-pic-container--img" src=${pictureURL} alt="Mascota">
                 </div>
                 <div class="info-container">
                     <div>
-                        <title-el>Bobby</title-el>
-                        <h3>Nuñez</h3>
+                        <title-el>${name}</title-el>
+                        <h3>${last_location}</h3>
                     </div>
                     <div class="info-container__report-info">
                         <a href="">REPORTAR INFORMACION</a>
