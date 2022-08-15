@@ -59,6 +59,7 @@ export const instanciar_pet_card = () => {
               }
               .pet-pic-container--img {
                 height: 150px;
+                max-width: 330px;
               }
               .info-container {
                 display: flex;
