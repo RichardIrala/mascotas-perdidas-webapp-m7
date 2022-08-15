@@ -103,6 +103,7 @@ export const instanciar_signup_page = () => {
               res.email
                 ? api.authLogin(res.email, password).then((res) => {
                     state.saveUserToken(res.token);
+                    state.checkUserToken("/welcome");
                   })
                 : console.error(res.message);
             });
