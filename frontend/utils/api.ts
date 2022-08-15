@@ -22,6 +22,7 @@ export const api = {
     const resJson = await res.json();
     return resJson;
   },
+
   async authRegister(email: string, password: string, firstName: string) {
     const raw = JSON.stringify({ email, password, firstName });
 
@@ -35,6 +36,7 @@ export const api = {
 
     return resJson;
   },
+
   async newPetLost(
     name: string,
     last_location: string,
@@ -57,6 +59,14 @@ export const api = {
       body: raw,
       headers: { "content-type": "application/json" },
     });
+
+    const resJson = await res.json();
+
+    return resJson;
+  },
+
+  async mascotasCercaDe(lat: number, lng: number) {
+    const res = await fetch(`/pets/cerca-de?lat=${lat}&lng=${lng}`);
 
     const resJson = await res.json();
 
