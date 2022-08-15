@@ -35,7 +35,7 @@ export const instanciar_header = () => {
                     <a class="menu-burger--content" href="">Mis mascotas reportadas</a>
                   </li>
                   <li>
-                    <a class="menu-burger--content" href="">Reportar mascota</a>
+                    <a class="reportar-mascota menu-burger--content" href="">Reportar mascota</a>
                    </li>
                 </ul>
               </nav>
@@ -178,6 +178,7 @@ export const instanciar_header = () => {
         const closeMenuBurgerEl = $(".close-menu-burger");
         const burgerNavEl = $(".menu-burger-container");
         const aTagMisDatos = $(".mis-datos");
+        const aTagReportarMascota = $(".reportar-mascota");
 
         menuBurgerEl.addEventListener("click", () => {
           if (burgerNavEl.classList.contains("display-none")) {
@@ -192,6 +193,10 @@ export const instanciar_header = () => {
         });
         aTagMisDatos.addEventListener("click", () => {
           state.checkUserToken("/my-profile");
+        });
+
+        aTagReportarMascota.addEventListener("click", () => {
+          state.checkUserToken("/pets/new-lost-pet");
         });
 
         huellaIconEl.addEventListener("click", () => {
