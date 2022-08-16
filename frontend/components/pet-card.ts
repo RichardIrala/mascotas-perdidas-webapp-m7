@@ -1,5 +1,5 @@
 export const instanciar_pet_card = () => {
-  const legIcon = require("../assets/leg-icon.svg");
+  const closeIcon = require("../assets/close-icon.svg");
   customElements.define(
     "pet-card-el",
     class extends HTMLElement {
@@ -17,6 +17,8 @@ export const instanciar_pet_card = () => {
         const pictureURL = this.getAttribute("pictureURL");
         const last_location = this.getAttribute("last_location");
         const founded = this.getAttribute("founded");
+        const remove = this.getAttribute("remove");
+        console.log(remove);
 
         const style = document.createElement("style");
 
@@ -32,9 +34,15 @@ export const instanciar_pet_card = () => {
                         <title-el>${name}</title-el>
                         <h3>${last_location}</h3>
                     </div>
-                    <div class="info-container__report-info">
-                        <a href="">REPORTAR INFORMACION</a>
-                    </div>
+                    ${
+                      !remove
+                        ? `<div class="info-container__report-info">
+                            <a href="">REPORTAR INFORMACION</a>
+                          </div>`
+                        : `<div class="info-container__report-info">
+                            <img class="delete-pet" src=${closeIcon}>
+                          </div>`
+                    }
                 </div>
             </div>
         `;
@@ -72,6 +80,12 @@ export const instanciar_pet_card = () => {
                 align-items: flex-end;
                 max-width: 125px;
                 text-align: end;
+              }
+              
+              .delete-pet {
+                height: 40px;
+                width: 40px;
+                cursor: pointer;
               }
              `;
 
