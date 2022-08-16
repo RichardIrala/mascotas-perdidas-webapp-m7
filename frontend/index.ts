@@ -4,6 +4,9 @@ import { instanciar_welcome_page } from "./pages/welcome";
 import { instanciar_login_email_page } from "./pages/my-profile";
 import { instanciar_geoloc_page } from "./pages/get-geolocation";
 import { instanciar_password_page } from "./pages/login-password";
+import { instanciar_signup_page } from "./pages/signup";
+import { instanciar_new_lost_pet_page } from "./pages/new-lost-pet";
+import { instanciar_pets_reported_page } from "./pages/pets-reported";
 //components
 import { instanciar_button_rose } from "./components/button-rose";
 import { instanciar_general_text } from "./components/general-text";
@@ -13,9 +16,7 @@ import { instanciar_pet_card } from "./components/pet-card";
 import { instanciar_title } from "./components/title";
 //router
 import "./router/index";
-import { instanciar_signup_page } from "./pages/signup";
 import { state } from "./state";
-import { instanciar_new_lost_pet_page } from "./pages/new-lost-pet";
 
 (() => {
   instanciarComponentes();
@@ -39,6 +40,7 @@ function instanciarPages() {
   instanciar_password_page();
   instanciar_signup_page();
   instanciar_new_lost_pet_page();
+  instanciar_pets_reported_page();
 }
 
 function instanciarComponentes() {
