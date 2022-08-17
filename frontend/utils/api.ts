@@ -72,4 +72,14 @@ export const api = {
 
     return resJson;
   },
+
+  async mascotasReportedByUser(token: string) {
+    const res = await fetch("/pets/reported-by-user", {
+      headers: { Authorization: token },
+    });
+
+    const resJson = await res.json();
+
+    return resJson;
+  },
 };
