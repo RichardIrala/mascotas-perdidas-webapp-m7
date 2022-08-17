@@ -14,6 +14,7 @@ const uploadImage = async (pictureURL: string) => {
 };
 
 export const newPet = async (
+  UserId: number,
   name: string,
   longPictureURL: string,
   last_location: string,
@@ -24,6 +25,7 @@ export const newPet = async (
   try {
     const pictureURL = await uploadImage(longPictureURL);
     const pet = await Pet.create({
+      UserId,
       name,
       pictureURL,
       last_location,
@@ -74,6 +76,15 @@ export const getPetsCercaDe = async (lat: number, lng: number) => {
 
   function kmToMeters(kilometers: number) {
     return kilometers * 1000;
+  }
+};
+
+export const petsReportedBy = async (UserId: string) => {
+  try {
+    const pets = await Pet.findAll({ where: { UserId } });
+    return pets;
+  } catch (error) {
+    return { message: error.message };
   }
 };
 
