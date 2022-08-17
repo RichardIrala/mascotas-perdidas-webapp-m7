@@ -19,16 +19,21 @@ export const instanciar_new_lost_pet_page = () => {
 
         this.innerHTML = /*html*/ `
                 <header-el></header-el>
-                <form class="principal-container form">
-                    ${crearInput("Nombre", "name")}
-                    ${crearInput("Visto ultima vez en", "last_location")}
-                    ${crearInput("Latitud", "lat")}
-                    ${crearInput("Longitud", "lng")}
-                    ${crearInput("Descripción", "description")}
-                    <div class="holiwis"></div>
-                    <button id="foto-input" type="button">Foto</button>
-                    <button class="boton-submit" type="submit">Subir</button>
-                </form>
+                <div class="principal-container">
+                  <div class="title-container">
+                    <title-el>Reportar mascota perdida</title-el>
+                  </div>
+                  <form class="secundary-container form">
+                      ${crearInput("Nombre", "name")}
+                      <button id="foto-input" type="button">Foto</button>
+                      <div class="foto_pet"></div>
+                      ${crearInput("Visto ultima vez en", "last_location")}
+                      ${crearInput("Latitud", "lat")}
+                      ${crearInput("Longitud", "lng")}
+                      ${crearInput("Descripción", "description")}
+                      <button class="boton-submit" type="submit">Subir</button>
+                  </form>
+                </div>
                 
             `;
         style.innerHTML = `
@@ -37,27 +42,19 @@ export const instanciar_new_lost_pet_page = () => {
               box-sizing: border-box;
             }
             .principal-container {
-                background: red;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
             }
-            .d-flex {
+            
+            .secundary-container {
               display: flex;
-            }
-
-            .flex-dir-column {
               flex-direction: column;
-            }
-
-            .justify-c-center {
-              justify-content: center;
-            }
-
-            .align-i-center {
               align-items: center;
+              gap: 20px;
+              padding-bottom: 50px;
             }
-
+            
             .title-container {
                 display: flex;
                 justify-content: center;
@@ -74,9 +71,11 @@ export const instanciar_new_lost_pet_page = () => {
             .bordes {
                 width: fit-content;
                 height: fit-content;
-                border: 3px #fff solid;
+                border: 3px #4e0101 solid;
                 border-radius: 20%;
                 overflow: hidden;
+                -webkit-box-shadow: 5px 5px 15px 5px #000000; 
+                box-shadow: 5px 5px 15px 5px #000000;
             }
             ${inputCss()}
             `;
@@ -90,16 +89,16 @@ export const instanciar_new_lost_pet_page = () => {
         const getOneFormData = (event: Event, inputName: string) => {
           return event.target[inputName].value;
         };
-        const holiwis = document.querySelector(".holiwis");
+        const foto_pet = document.querySelector(".foto_pet");
         const info: any = {};
         const myDropzone = new Dropzone("#foto-input", {
           url: "/falsa",
           autoProcessQueue: false,
           maxFiles: 1,
-          thumbnailWidth: 500,
-          thumbnailHeight: 500,
+          thumbnailWidth: 335,
+          thumbnailHeight: 335,
           //   addRemoveLinks: true,
-          previewsContainer: holiwis,
+          previewsContainer: foto_pet,
         });
 
         myDropzone.on("thumbnail", function (file) {
@@ -117,7 +116,7 @@ export const instanciar_new_lost_pet_page = () => {
               .querySelector(".dz-error-mark")
               .classList.add("display-none");
             document.getElementById("foto-input").classList.add("display-none");
-            holiwis.classList.add("bordes");
+            foto_pet.classList.add("bordes");
           }
         });
 
@@ -152,3 +151,5 @@ export const instanciar_new_lost_pet_page = () => {
     }
   );
 };
+
+//A esta page le faltaría redirigir todo a una nueva página. Podría ser "success" y la imagen y nombre de su michi
