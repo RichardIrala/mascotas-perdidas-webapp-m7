@@ -1,7 +1,12 @@
 import * as express from "express";
 import * as path from "path";
 import { auth, getMe, token } from "../controllers/Auth";
-import { getPets, getPetsCercaDe, newPet } from "../controllers/pet-controller";
+import {
+  getPets,
+  getPetsCercaDe,
+  newPet,
+  petsReportedBy,
+} from "../controllers/pet-controller";
 import { userExist } from "../controllers/User";
 import { sequelize } from "../database";
 import { authMiddleware } from "../middlewares/authMiddleware";
@@ -63,7 +68,8 @@ app.get("/users/me", authMiddleware, async (req, res) => {
 });
 
 //EDNPOINTS DE MASCOTAS
-app.post("/pets", async (req, res) => {
+app.post("/pets", authMiddleware, async (req, res) => {
+  const UserId = req._userId;
   const { name, last_location, lat, lng, description, pictureURL } = req.body;
   if (lat > 90 || lat < -90 || lng > 90 || lat < -90) {
     res.json({
@@ -75,6 +81,7 @@ app.post("/pets", async (req, res) => {
   try {
     //Devuelve la nueva mascota
     let pet = await newPet(
+      UserId,
       name,
       pictureURL,
       last_location,
@@ -98,6 +105,16 @@ app.get("/pets/cerca-de", async (req, res) => {
   const pets = await getPetsCercaDe(lat, lng);
   console.log(pets);
   res.json(pets);
+});
+
+app.get("/pets/reported-by-user", authMiddleware, async (req, res) => {
+  const UserId = req._userId;
+  try {
+    const pets = await petsReportedBy(UserId);
+    res.json(pets);
+  } catch (error) {
+    res.json({ error: error.message });
+  }
 });
 
 //todo lo que no coincida con una ruta, devuelve el index.html
