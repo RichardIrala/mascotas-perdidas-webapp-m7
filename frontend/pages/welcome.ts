@@ -73,8 +73,9 @@ export const instanciar_welcome_page = () => {
               )
               .then((res) => {
                 const petsHtml =
-                  res != []
-                    ? res
+                  res.length === 0
+                    ? "No hay mascotas cerca :333"
+                    : res
                         .map((pet) => {
                           console.log(pet);
                           console.log(
@@ -89,8 +90,8 @@ export const instanciar_welcome_page = () => {
                     last_location="${pet.last_location.toString()}"
                     founded="${pet.founded.toString()}"></pet-card-el>`;
                         })
-                        .join("")
-                    : "No tienes mascotas cerca";
+                        .join("");
+
                 petsCardsContainer.innerHTML = petsHtml;
               });
           };
