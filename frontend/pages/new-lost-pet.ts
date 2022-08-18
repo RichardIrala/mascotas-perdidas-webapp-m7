@@ -25,13 +25,15 @@ export const instanciar_new_lost_pet_page = () => {
                   </div>
                   <form class="secundary-container form">
                       ${crearInput("Nombre", "name")}
-                      <button id="foto-input" type="button">Foto</button>
+                      <button-rose-el id="foto-input">Foto</button-rose-el>
                       <div class="foto_pet"></div>
                       ${crearInput("Visto ultima vez en", "last_location")}
                       ${crearInput("Latitud", "lat")}
                       ${crearInput("Longitud", "lng")}
                       ${crearInput("Descripción", "description")}
-                      <button class="boton-submit" type="submit">Subir</button>
+                      <button class="form__button" type="submit">
+                        <button-rose-el>Publicar</button-rose-el>
+                      </button>
                   </form>
                 </div>
                 
@@ -86,6 +88,11 @@ export const instanciar_new_lost_pet_page = () => {
                 box-shadow: 5px 5px 15px 5px #000000;
             }
             ${inputCss()}
+
+            .form__button {
+                padding: 0;
+                border: none;
+              }
             `;
         this.appendChild(style);
         this.addListeners();
@@ -129,16 +136,22 @@ export const instanciar_new_lost_pet_page = () => {
         });
 
         form.addEventListener("submit", async (e) => {
-          const pictureURL = info.pictureURL;
           e.preventDefault();
+          const token = state.getUserData().token;
+          const pictureURL = info.pictureURL;
           const name = getOneFormData(e, "name");
           const last_location = getOneFormData(e, "last_location");
           const lat = Number(getOneFormData(e, "lat"));
           const lng = Number(getOneFormData(e, "lng"));
           const description = getOneFormData(e, "description");
+          if (!(pictureURL && last_location && name && lng && lng)) {
+            alert("Falta completar datos en el Formulario");
+            return;
+          }
 
           try {
             const nuevaMascota = await api.newPetLost(
+              token,
               name,
               last_location,
               lat,
