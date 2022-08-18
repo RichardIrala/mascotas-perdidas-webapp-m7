@@ -90,9 +90,6 @@ export const instanciar_user_email = () => {
           api.userExist(email).then((res: any) => {
             state.setUserEmail(email);
             if (res.exist) {
-              console.log(
-                "Este email existe en la db. Por favor ingrese su contraseña"
-              );
               Router.go("/login-password");
             } else {
               console.error("Este email no existe");

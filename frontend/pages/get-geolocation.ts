@@ -61,7 +61,7 @@ export const instanciar_geoloc_page = () => {
         );
         buttonGetGeolocation.addEventListener("click", () => {
           const aceptoGeoLoc = (position) => {
-            console.log(position.coords.latitude, position.coords.longitude);
+            // console.log(position.coords.latitude, position.coords.longitude);
             Router.go("/welcome");
           };
           const noAceptoGeoLoc = () => {

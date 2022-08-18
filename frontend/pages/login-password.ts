@@ -101,14 +101,13 @@ function loguearse(email: string, password: string) {
       .then((res) => {
         if (res.token) {
           state.saveUserToken(res.token);
-          console.log("token agregado");
           state.checkUserToken("/welcome");
         } else {
           console.error(res.message);
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   }
   //

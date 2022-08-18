@@ -18,7 +18,6 @@ export const instanciar_pet_card = () => {
         const last_location = this.getAttribute("last_location");
         const founded = this.getAttribute("founded");
         const remove = this.getAttribute("remove");
-        console.log(remove);
 
         const style = document.createElement("style");
 

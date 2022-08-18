@@ -118,10 +118,8 @@ export const instanciar_new_lost_pet_page = () => {
         });
 
         myDropzone.on("thumbnail", function (file) {
-          // usando este evento pueden acceder al dataURL directamente
-          // console.log(file.dataURL);
           info.pictureURL = file.dataURL;
-          console.log(info.pictureURL);
+          // console.log(info.pictureURL);
           if (info.pictureURL != {}) {
             //Esto apaga el OK y la X cuando pongo una imagen en el boton
             document

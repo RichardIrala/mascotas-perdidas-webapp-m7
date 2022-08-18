@@ -65,7 +65,6 @@ export const instanciar_welcome_page = () => {
         const mascotasCercaMio = async () => {
           const petsCardsContainer = this.querySelector(".pet-cards");
           const aceptoGeoLoc = async (position) => {
-            // console.log(position);
             const mascotas = await api.mascotasCercaDe(
               position.coords.latitude,
               position.coords.longitude
@@ -76,7 +75,7 @@ export const instanciar_welcome_page = () => {
                 ? `<h1>No hay mascotas cerca</h1>`
                 : mascotas
                     .map((pet) => {
-                      console.log(pet);
+                      // console.log(pet);
                       return /*html*/ `<pet-card-el 
                         idPet="${pet.id.toString()}"
                         name="${pet.name.toString()}"
