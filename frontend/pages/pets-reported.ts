@@ -17,7 +17,10 @@ export const instanciar_pets_reported_page = () => {
 
       render() {
         const shadow = this.shadow;
-        shadow.innerHTML = `<div class="contenedor"></div>`;
+        shadow.innerHTML = `
+        <header-el></header-el>
+        <div class="contenedor"></div>
+        `;
         const style = document.createElement("style");
         style.innerHTML = `
             * {
@@ -59,6 +62,9 @@ const cerquita = async () => {
 };
 
 const petsHtml = (pets) => {
+  if (pets.length === 0) {
+    return `<h2>No reportaste mascotas :3</h2>`;
+  }
   return pets
     .map((pet) => {
       return /*html*/ `<pet-card-el 
