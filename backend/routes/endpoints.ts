@@ -1,6 +1,6 @@
 import * as express from "express";
 import * as path from "path";
-import { auth, getMe, token } from "../controllers/Auth";
+import { auth, changePassword, getMe, token } from "../controllers/Auth";
 import {
   getPets,
   getPetsCercaDe,
@@ -53,6 +53,19 @@ app.post("/auth/token", async (req, res) => {
     res.json(authToken);
   } catch (error) {
     res.json({ message: error.message });
+  }
+});
+
+app.post("/auth/change-password", authMiddleware, async (req, res) => {
+  try {
+    const { oldPassword, newPassword } = req.body;
+    const id = req._userId;
+    const response = await changePassword(id, oldPassword, newPassword);
+    if (response.message !== "Cambio de contraseña exitoso") {
+      res.status(400).json(response);
+    } else res.status(204).json();
+  } catch (error) {
+    res.json({ error: error.message });
   }
 });
 

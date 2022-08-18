@@ -60,3 +60,29 @@ export const getMe = async (id: number) => {
   const myUserInfo = await User.findByPk(id);
   return myUserInfo;
 };
+
+export const changePassword = async (
+  id: number,
+  oldPassword: string,
+  newPassword: string
+) => {
+  try {
+    const passwordHashed = hashPassword(newPassword);
+    const oldPasswordHashed = hashPassword(oldPassword);
+
+    const updatedUser = await Auth.update(
+      { password: passwordHashed },
+      {
+        where: {
+          id,
+          password: oldPasswordHashed,
+        },
+      }
+    );
+    if (updatedUser[0] == 0) {
+      return { message: "Contraseña erronea" };
+    } else return { message: "Cambio de contraseña exitoso" };
+  } catch (error) {
+    return { error: error.message };
+  }
+};
