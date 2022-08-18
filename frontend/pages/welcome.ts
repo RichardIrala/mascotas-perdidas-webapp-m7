@@ -70,16 +70,7 @@ export const instanciar_welcome_page = () => {
               position.coords.latitude,
               position.coords.longitude
             );
-            console.log(
-              "-------------------------------------------------------"
-            );
-            console.log(
-              mascotas,
-              "esto es lo que devuelve el backend sobre las mascotas"
-            );
-            console.log(
-              "-------------------------------------------------------"
-            );
+
             const petsHtml =
               mascotas.length === 0
                 ? `<h1>No hay mascotas cerca</h1>`
