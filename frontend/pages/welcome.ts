@@ -73,18 +73,20 @@ export const instanciar_welcome_page = () => {
               )
               .then((res) => {
                 const petsHtml = res
-                  .map((pet) => {
-                    console.log(pet);
-                    console.log(pet.last_location.toString(), "ultima ubi");
-                    return /*html*/ `<pet-card-el 
+                  ? res
+                      .map((pet) => {
+                        console.log(pet);
+                        console.log(pet.last_location.toString(), "ultima ubi");
+                        return /*html*/ `<pet-card-el 
                     idPet="${pet.id.toString()}"
                     name="${pet.name.toString()}"
                     description="${pet.description.toString()}"
                     pictureURL="${pet.pictureURL.toString()}"
                     last_location="${pet.last_location.toString()}"
                     founded="${pet.founded.toString()}"></pet-card-el>`;
-                  })
-                  .join("");
+                      })
+                      .join("")
+                  : "No tienes mascotas cerca";
                 petsCardsContainer.innerHTML = petsHtml;
               });
           };
