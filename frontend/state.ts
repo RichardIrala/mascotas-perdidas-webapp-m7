@@ -35,11 +35,11 @@ export const state = {
     this.listeners.push(callback);
   },
 
-  checkUserToken(route: string) {
+  checkUserToken(route?: string) {
     const userData = this.getUserData();
     if (!userData.token) {
       Router.go("/login");
-    } else {
+    } else if (route) {
       Router.go(route);
     }
   },
