@@ -38,6 +38,7 @@ export const api = {
   },
 
   async newPetLost(
+    token: string,
     name: string,
     last_location: string,
     lat: number,
@@ -57,7 +58,10 @@ export const api = {
     const res = await fetch("/pets", {
       method: "POST",
       body: raw,
-      headers: { "content-type": "application/json" },
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     });
 
     const resJson = await res.json();
