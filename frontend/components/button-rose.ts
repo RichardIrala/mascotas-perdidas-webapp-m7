@@ -1,3 +1,5 @@
+import { state } from "../state";
+
 export const instanciar_button_rose = () => {
   customElements.define(
     "button-rose-el",
@@ -36,7 +38,7 @@ export const instanciar_button_rose = () => {
                   border-radius: 4px;
                   border: none;
                   cursor: pointer;
-                  font-weight: 700;
+                  ${state.setFont(700)}
               }
               .button:active {
                 background: #c199bd;
