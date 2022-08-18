@@ -1,3 +1,5 @@
+import { state } from "../state";
+
 export const crearInput = (
   labelTitle: string,
   inputName: string,
@@ -21,12 +23,14 @@ export const inputCss = () => {
     .label {
       display: flex;
       flex-direction: column;
+      ${state.setFont(500)}
     }
     .form__input {
         font-size: 32px;
         border-radius: 2px;
         border: #000000 solid 2px;
         width: 335px;
+        ${state.setFont(400)}
     }
   `;
 };
