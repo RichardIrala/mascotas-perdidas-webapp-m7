@@ -11,6 +11,7 @@ export const instanciar_pets_reported_page = () => {
       }
 
       connectedCallback() {
+        state.checkUserToken();
         this.render();
         this.addListeners();
       }
@@ -31,6 +32,8 @@ export const instanciar_pets_reported_page = () => {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                padding: 40px 0;
+                gap: 20px;
             }
             .contenedor-carta {
                 display: flex;

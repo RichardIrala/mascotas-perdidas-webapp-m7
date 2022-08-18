@@ -12,6 +12,7 @@ export const instanciar_new_lost_pet_page = () => {
         super();
       }
       connectedCallback() {
+        state.checkUserToken();
         this.render();
       }
       render() {
