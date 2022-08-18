@@ -64,36 +64,30 @@ export const instanciar_welcome_page = () => {
         // }
         const mascotasCercaMio = async () => {
           const petsCardsContainer = this.querySelector(".pet-cards");
-          const aceptoGeoLoc = (position) => {
+          const aceptoGeoLoc = async (position) => {
             // console.log(position);
-            api
-              .mascotasCercaDe(
-                position.coords.latitude,
-                position.coords.longitude
-              )
-              .then((res) => {
-                const petsHtml =
-                  res.length === 0
-                    ? "No hay mascotas cerca :333"
-                    : res
-                        .map((pet) => {
-                          console.log(pet);
-                          console.log(
-                            pet.last_location.toString(),
-                            "ultima ubi"
-                          );
-                          return /*html*/ `<pet-card-el 
-                    idPet="${pet.id.toString()}"
-                    name="${pet.name.toString()}"
-                    description="${pet.description.toString()}"
-                    pictureURL="${pet.pictureURL.toString()}"
-                    last_location="${pet.last_location.toString()}"
-                    founded="${pet.founded.toString()}"></pet-card-el>`;
-                        })
-                        .join("");
+            const mascotas = await api.mascotasCercaDe(
+              position.coords.latitude,
+              position.coords.longitude
+            );
 
-                petsCardsContainer.innerHTML = petsHtml;
-              });
+            const petsHtml =
+              mascotas.length === 0
+                ? `<h1>No hay mascotas cerca</h1>`
+                : mascotas
+                    .map((pet) => {
+                      console.log(pet);
+                      return /*html*/ `<pet-card-el 
+                        idPet="${pet.id.toString()}"
+                        name="${pet.name.toString()}"
+                        description="${pet.description.toString()}"
+                        pictureURL="${pet.pictureURL.toString()}"
+                        last_location="${pet.last_location.toString()}"
+                        founded="${pet.founded.toString()}"></pet-card-el>`;
+                    })
+                    .join("");
+
+            petsCardsContainer.innerHTML = petsHtml;
           };
 
           const noAceptoGeoLoc = () => {
