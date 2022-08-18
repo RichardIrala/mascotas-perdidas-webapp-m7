@@ -1,3 +1,4 @@
+import { Router } from "@vaadin/router";
 import { crearInput, inputCss } from "../funcional-components/input";
 import { state } from "../state";
 import { api } from "../utils/api";
@@ -69,16 +70,25 @@ export const instanciar_password_page = () => {
         this.addListeners();
       }
       addListeners() {
-        this.shadow.querySelector(".form").addEventListener("submit", (e) => {
-          e.preventDefault();
-          const getOneFormData = (event: Event, inputName: string) => {
-            return event.target[inputName].value;
-          };
-          const email = state.getUserData().email;
-          const password = getOneFormData(e, "contraseña");
-
-          loguearse(email, password);
-        });
+        this.shadow
+          .querySelector(".form")
+          .addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const getOneFormData = (event: Event, inputName: string) => {
+              return event.target[inputName].value;
+            };
+            const email = state.getUserData().email;
+            const password = getOneFormData(e, "contraseña");
+            if (!email) {
+              Router.go("/login");
+              return;
+            }
+            if (!password) {
+              alert("Por favor ingrese la contraseña");
+              return;
+            }
+            loguearse(email, password);
+          });
       }
     }
   );
