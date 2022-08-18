@@ -10,6 +10,22 @@ export function initMap(id) {
     zoom: 1, // zoom inicial
     projection: "globe",
   });
+
+  const aceptoGeoLoc = async (position) => {
+    const mascotas = await api.mascotasCercaDe(
+      position.coords.latitude,
+      position.coords.longitude
+    );
+    if (mascotas.length !== 0) {
+      for (const latlong of mascotas) {
+        new mapboxgl.Marker().setLngLat(latlong).addTo(map);
+      }
+    }
+  };
+  const noAceptoGeoLoc = () => {
+    console.error("Acceso a la ubicación denegado");
+  };
+
   map.on("style.load", () => {
     map.setFog({}); // Set the default atmosphere style
   });
@@ -24,12 +40,12 @@ export function initMap(id) {
     })
   );
 
-  //Cambiar las coordenadas por mi ubicación actual vía getCurrentPosition
+  if (!!navigator.geolocation) {
+    window.navigator.geolocation.getCurrentPosition(
+      aceptoGeoLoc,
+      noAceptoGeoLoc
+    );
+  }
 
-  // api.mascotasCercaDe(-34.7671, -58.4737).then((res) => {
-  //   for (const latlong of res) {
-  //     new mapboxgl.Marker().setLngLat(latlong).addTo(map);
-  //   }
-  // });
   return map;
 }
