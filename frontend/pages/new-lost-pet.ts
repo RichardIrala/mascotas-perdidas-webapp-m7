@@ -41,6 +41,11 @@ export const instanciar_new_lost_pet_page = () => {
               margin: 0;
               box-sizing: border-box;
             }
+
+            :root {
+              --height-img: 335px;
+            }
+
             .principal-container {
                 display: flex;
                 flex-direction: column;
@@ -68,9 +73,12 @@ export const instanciar_new_lost_pet_page = () => {
                 color: black;
                 font-size: 32px;
             }
+            .dz-image img {
+              height: var(--height-img);
+            }
             .bordes {
                 width: fit-content;
-                height: fit-content;
+                height: var(--height-img);
                 border: 3px #4e0101 solid;
                 border-radius: 20%;
                 overflow: hidden;
