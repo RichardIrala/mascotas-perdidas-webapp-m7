@@ -70,7 +70,13 @@ export const state = {
     cs.userData.token = token;
     (cs.userData.logued = true), this.setState(cs);
   },
+  clearUserData() {
+    const cs = this.getState();
 
+    cs.userData = {};
+
+    this.setState(cs);
+  },
   setUserName(userName: string) {
     const cs = this.getState();
     cs.userData.name = userName;
