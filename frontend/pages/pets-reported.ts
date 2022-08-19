@@ -30,10 +30,13 @@ export const instanciar_pets_reported_page = () => {
             }
             .contenedor {
                 display: flex;
-                flex-direction: column;
                 align-items: center;
-                padding: 40px 0;
+                justify-content: center;
+                flex-wrap: wrap;
+                padding: 40px 20px 40px 20px;
                 gap: 20px;
+                margin: auto;
+                max-width: 1200px;
             }
             .contenedor-carta {
                 display: flex;

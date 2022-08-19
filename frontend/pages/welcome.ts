@@ -24,8 +24,9 @@ export const instanciar_welcome_page = () => {
                 <title-el>Mascotas perdidas cerca tuyo</title-el>
             </div>
             <div class="pet-cards">
-               
+                
             </div>
+            
         `;
         style.innerHTML = `
         .marco-del-mapa {
@@ -35,14 +36,19 @@ export const instanciar_welcome_page = () => {
         .title-container {
             display: flex;
             justify-content: center;
-            padding: 33px 0px;
+            padding: 33px 20px;
+            text-align: center;
         }
 
         .pet-cards {
             display: flex;
-            gap: 20px;
-            flex-direction: column;
             align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 0 20px 40px 20px;
+            gap: 20px;
+            margin: auto;
+            max-width: 1200px;
         }
         `;
         this.appendChild(style);
