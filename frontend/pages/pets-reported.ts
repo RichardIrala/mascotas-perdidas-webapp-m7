@@ -20,6 +20,9 @@ export const instanciar_pets_reported_page = () => {
         const shadow = this.shadow;
         shadow.innerHTML = `
         <header-el></header-el>
+        <div class="title">
+          <title-el>Mascotas reportadas por ti</title-el>
+        </div>
         <div class="contenedor"></div>
         `;
         const style = document.createElement("style");
@@ -28,12 +31,16 @@ export const instanciar_pets_reported_page = () => {
                box-sizing: border-box;
                margin: 0; 
             }
+            .title {
+              text-align: center;
+              padding: 33px 0;
+            }
             .contenedor {
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 flex-wrap: wrap;
-                padding: 40px 20px 40px 20px;
+                padding: 0px 20px 40px 20px;
                 gap: 20px;
                 margin: auto;
                 max-width: 1200px;

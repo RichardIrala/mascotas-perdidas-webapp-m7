@@ -78,3 +78,4 @@ export const instanciar_success_publication_page = () => {
 function goTo(route: string) {
   state.checkUserToken(route);
 }
+//REQUIERO AGREGAR EL VACIADOR DE LA MASCOTA QUE PUBLIQUE RECIEN APENAS SE RENDERICE ESTE COMPONENTE UWU
