@@ -31,8 +31,7 @@ export const instanciar_logout = () => {
         const $ = (selector: `.${any}`) => this.shadow.querySelector(selector);
         const logoutButton = $(".logout");
         logoutButton.addEventListener("click", () => {
-          state.clearUserData();
-          state.checkUserToken();
+          state.logout();
         });
       }
     }
