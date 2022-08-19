@@ -158,7 +158,9 @@ export const instanciar_new_lost_pet_page = () => {
               pictureURL,
               description
             );
-            console.log(nuevaMascota);
+            if (nuevaMascota.pet.id) {
+              state.checkUserToken("/pets/success-publication");
+            } else console.error(nuevaMascota);
           } catch (error) {
             console.error(error.message);
           }
