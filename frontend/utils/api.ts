@@ -86,4 +86,29 @@ export const api = {
 
     return resJson;
   },
+
+  async changePassword(
+    token: string,
+    oldPassword: string,
+    newPassword: string
+  ) {
+    const raw = JSON.stringify({ oldPassword, newPassword });
+
+    const res = await fetch("/auth/change-password", {
+      method: "POST",
+      body: raw,
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const resJson = await res.json();
+
+    /* Posible comentarios si todo sale bien:
+       "Contraseña erronea" || "Cambio de contraseña exitoso" : estos mensajes dentro de un objeto { message: respuesta }
+       Si hay errores con el backend podrían haber otras respuestas.
+    */
+    return resJson;
+  },
 };
