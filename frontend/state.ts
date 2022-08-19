@@ -3,6 +3,7 @@ import { Router } from "@vaadin/router";
 export const state = {
   data: {
     userData: {},
+    infoPetForEmail: {},
   },
   listeners: [],
 
@@ -86,5 +87,17 @@ export const state = {
   },
   getUserName() {
     return this.getUserData().name;
+  },
+  setPetInfo({ petname, pictureURL }) {
+    const cs = this.getState();
+
+    cs.infoPetForEmail = { petname, pictureURL };
+
+    this.setState(cs);
+  },
+  getPetInfo() {
+    const cs = this.getState();
+
+    return cs.infoPetForEmail;
   },
 };
