@@ -57,6 +57,7 @@ export const instanciar_pet_card = () => {
                 width: 335px;
                 border: solid;
                 border-radius: 4px;
+                box-shadow: 5px 5px 15px 5px #000000;
               }
 
               .pet-pic-container {
