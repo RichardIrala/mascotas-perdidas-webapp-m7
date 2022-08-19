@@ -37,8 +37,9 @@ export const instanciar_login_email_page = () => {
                       "password"
                     )}
                     <button class="form__button" type="submit">
-                      <button-rose-el>Registrarse</button-rose-el>
+                      <button-rose-el>Cambiar contraseña</button-rose-el>
                     </button>
+                    <logout-el></logout-el>
               </form>
           `;
         style.innerHTML = `
