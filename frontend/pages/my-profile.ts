@@ -1,5 +1,6 @@
 import { crearInput, inputCss } from "../funcional-components/input";
 import { state } from "../state";
+import { api } from "../utils/api";
 
 export const instanciar_login_email_page = () => {
   customElements.define(
@@ -19,16 +20,20 @@ export const instanciar_login_email_page = () => {
               </div>
               <form class="form d-flex flex-dir-column align-i-center gap20">
                     ${crearInput(
-                      "nombre",
-                      "name",
-                      "text",
+                      "contraseña actual",
+                      "old_password",
+                      "password",
                       "margin-b50",
                       state.getUserName()
                     )}
-                    ${crearInput("contraseña", "password", "password")}
                     ${crearInput(
-                      "repetir contraseña",
-                      "repeated_password",
+                      "nueva contraseña",
+                      "new_password",
+                      "password"
+                    )}
+                    ${crearInput(
+                      "repetir nueva contraseña",
+                      "repeated_new_password",
                       "password"
                     )}
                     <button class="form__button" type="submit">
@@ -82,7 +87,44 @@ export const instanciar_login_email_page = () => {
         this.shadow.appendChild(style);
         this.addListeners();
       }
-      addListeners() {}
+      addListeners() {
+        const $ = (selector: `.${any}`) => this.shadow.querySelector(selector);
+        const form = $(".form");
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const getOneFormData = (event: Event, inputName: string) => {
+            return event.target[inputName].value;
+          };
+          const token = state.getUserData().token;
+          const old_password = getOneFormData(e, "old_password");
+          const new_password = getOneFormData(e, "new_password");
+          const repeated_new_password = getOneFormData(
+            e,
+            "repeated_new_password"
+          );
+          if (
+            !(
+              old_password &&
+              new_password &&
+              repeated_new_password &&
+              new_password === repeated_new_password
+            )
+          ) {
+            alert(
+              "Las contraseñas no son iguales o te falto llenar una casilla."
+            );
+          } else {
+            const resjson = await api.changePassword(
+              token,
+              old_password,
+              new_password
+            );
+            if (resjson.message === "Cambio de contraseña exitoso") {
+              state.checkUserToken("/welcome");
+            } else alert(resjson.message);
+          }
+        });
+      }
     }
   );
 };
