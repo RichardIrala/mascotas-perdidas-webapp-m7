@@ -1,5 +1,6 @@
 import { crearInput, inputCss } from "../funcional-components/input";
 import { crearTextArea, textareaCss } from "../funcional-components/textarea";
+import { state } from "../state";
 
 export const instanciar_report_infopet = () => {
   customElements.define(
@@ -13,15 +14,15 @@ export const instanciar_report_infopet = () => {
         this.render();
       }
       render() {
-        const idPet = this.getAttribute("idPet");
-        const pictureURL = this.getAttribute("pictureURL");
-        const name = this.getAttribute("name");
+        const infopet = state.getPetInfo();
+        const pictureURL = infopet.pictureURL;
+        const petname = infopet.petname;
         // const screenWidth = window.innerWidth;
         const style = document.createElement("style");
         this.shadow.innerHTML = `
         <div class="container">
           <div class="little-card-container">
-            <title-el>Cuentanos más sobre ${name}</title-el>
+            <title-el>Cuentanos más sobre ${petname}</title-el>
             <img class="pet-pic" src="${pictureURL}">
           </div>
           <form class="form">

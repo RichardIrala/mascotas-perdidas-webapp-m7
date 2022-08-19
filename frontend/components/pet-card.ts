@@ -1,3 +1,5 @@
+import { state } from "../state";
+
 export const instanciar_pet_card = () => {
   const closeIcon = require("../assets/close-icon.svg");
   customElements.define(
@@ -100,9 +102,14 @@ export const instanciar_pet_card = () => {
       }
       addListeners() {
         const $ = (selector: `.${any}`) => this.shadow.querySelector(selector);
+        const petname = this.getAttribute("name");
+        const pictureURL = this.getAttribute("pictureURL");
+        const idPet = this.getAttribute("idPet");
         const report_infopet_button = $(".report-infopet__button");
         report_infopet_button.addEventListener("click", (e) => {
           e.preventDefault();
+          state.setPetInfo({ petname, pictureURL });
+          state.checkUserToken(`/pets/report-info-pet/${idPet}`);
         });
       }
     }
