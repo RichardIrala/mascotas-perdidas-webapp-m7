@@ -14,6 +14,8 @@ import { instanciar_header } from "./components/header";
 import { instanciar_input } from "./components/input";
 import { instanciar_pet_card } from "./components/pet-card";
 import { instanciar_title } from "./components/title";
+import { instanciar_logout } from "./components/logout";
+
 //router
 import "./router/index";
 import { state } from "./state";
@@ -50,4 +52,5 @@ function instanciarComponentes() {
   instanciar_input();
   instanciar_pet_card();
   instanciar_title();
+  instanciar_logout();
 }
