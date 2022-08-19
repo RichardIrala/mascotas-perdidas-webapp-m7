@@ -11,5 +11,6 @@ import { Router } from "@vaadin/router";
     { path: "/signup", component: "signup-el" },
     { path: "/pets/new-lost-pet", component: "new-lost-pet-el" },
     { path: "/pets/reported-by-me", component: "pets-reported-el" },
+    { path: "/pets/report-info-pet/:id", component: "send-email-petinfo-el" },
   ]);
 })();
