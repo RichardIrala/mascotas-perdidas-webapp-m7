@@ -63,7 +63,7 @@ app.post("/auth/change-password", authMiddleware, async (req, res) => {
     const response = await changePassword(id, oldPassword, newPassword);
     if (response.message !== "Cambio de contraseña exitoso") {
       res.status(400).json(response);
-    } else res.status(204).json();
+    } else res.status(200).json(response);
   } catch (error) {
     res.json({ error: error.message });
   }
