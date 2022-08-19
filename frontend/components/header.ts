@@ -204,7 +204,7 @@ export const instanciar_header = () => {
         });
 
         huellaIconEl.addEventListener("click", () => {
-          Router.go("/");
+          Router.go("/welcome");
         });
       }
     }
