@@ -36,8 +36,9 @@ export const instanciar_pet_card = () => {
                     ${
                       !remove
                         ? `<div class="info-container__report-info">
-                            <a href="">REPORTAR INFORMACION</a>
-                          </div>`
+                            <a href="" class="report-infopet__button">REPORTAR INFORMACION</a>
+                          </div>
+                          `
                         : `<div class="info-container__report-info">
                             <img class="delete-pet" src=${closeIcon}>
                           </div>`
@@ -87,13 +88,23 @@ export const instanciar_pet_card = () => {
                 width: 40px;
                 cursor: pointer;
               }
+
+              .display-none {
+                display: none;
+              }
              `;
 
         this.shadow.appendChild(style);
         //Escuchador de eventos
         this.addListeners();
       }
-      addListeners() {}
+      addListeners() {
+        const $ = (selector: `.${any}`) => this.shadow.querySelector(selector);
+        const report_infopet_button = $(".report-infopet__button");
+        report_infopet_button.addEventListener("click", (e) => {
+          e.preventDefault();
+        });
+      }
     }
   );
 };
