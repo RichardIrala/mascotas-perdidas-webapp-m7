@@ -5,6 +5,7 @@ import {
   getPets,
   getPetsCercaDe,
   newPet,
+  petFounded,
   petsReportedBy,
 } from "../controllers/pet-controller";
 import { userExist } from "../controllers/User";
@@ -56,6 +57,7 @@ app.post("/auth/token", async (req, res) => {
   }
 });
 
+//cambiar contraseña
 app.post("/auth/change-password", authMiddleware, async (req, res) => {
   try {
     const { oldPassword, newPassword } = req.body;
@@ -125,6 +127,20 @@ app.get("/pets/reported-by-user", authMiddleware, async (req, res) => {
   try {
     const pets = await petsReportedBy(UserId);
     res.json(pets);
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+});
+
+app.post("/pets/:petId/founded", authMiddleware, async (req, res) => {
+  try {
+    const { petId } = req.params;
+    console.log(petId);
+    const UserId = req._userId;
+    const response = await petFounded(petId, UserId);
+    if (response.message !== "Nos alegra saber que encontraron a tu mascota") {
+      res.status(400).json(response);
+    } else res.status(200).json(response);
   } catch (error) {
     res.json({ error: error.message });
   }

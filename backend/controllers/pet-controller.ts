@@ -88,6 +88,28 @@ export const petsReportedBy = async (UserId: string) => {
   }
 };
 
+//Marcar mascota como encontrada
+export const petFounded = async (id: number, UserId: number) => {
+  try {
+    const updatedPet = await Pet.update(
+      { founded: true },
+      {
+        where: {
+          id,
+          UserId,
+        },
+      }
+    );
+    if (updatedPet[0] == 0) {
+      return {
+        message: "el ID de la mascota no existe o su dueño no es el indicado",
+      };
+    } else return { message: "Nos alegra saber que encontraron a tu mascota" };
+  } catch (error) {
+    return { error: error.message };
+  }
+};
+
 function petsOfIds(algoliaData: any[], allPets: any[]) {
   const ids = algoliaData.map((data) => data.objectID);
   const pets = allPets.filter((pet) => {
