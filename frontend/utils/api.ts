@@ -111,4 +111,15 @@ export const api = {
     */
     return resJson;
   },
+
+  async setPetFounded(petId: number, token: string) {
+    const res = await fetch(`/pets/${petId}/founded`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    const resJson = await res.json();
+
+    return resJson;
+  },
 };

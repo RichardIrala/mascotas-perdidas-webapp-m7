@@ -24,6 +24,7 @@ export const instanciar_pets_reported_page = () => {
           <title-el>Mascotas reportadas por ti</title-el>
         </div>
         <div class="contenedor"></div>
+        <h2>No reportaste más mascotas :3</h2>
         `;
         const style = document.createElement("style");
         style.innerHTML = `
@@ -76,7 +77,7 @@ const cerquita = async () => {
 
 const petsHtml = (pets) => {
   if (pets.length === 0) {
-    return `<h2>No reportaste mascotas :3</h2>`;
+    return "";
   }
   return pets
     .map((pet) => {
