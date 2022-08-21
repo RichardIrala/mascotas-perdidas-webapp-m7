@@ -26,6 +26,7 @@ export const instanciar_welcome_page = () => {
             <div class="pet-cards">
                 
             </div>
+            <h1>No hay más mascotas cerca</h1>
             
         `;
         style.innerHTML = `
@@ -78,11 +79,14 @@ export const instanciar_welcome_page = () => {
 
             const petsHtml =
               mascotas.length === 0
-                ? `<h1>No hay mascotas cerca</h1>`
+                ? ""
                 : mascotas
                     .map((pet) => {
                       // console.log(pet);
-                      return /*html*/ `<pet-card-el 
+                      if (pet.founded == true) {
+                        return "";
+                      } else
+                        return /*html*/ `<pet-card-el 
                         idPet="${pet.id.toString()}"
                         name="${pet.name.toString()}"
                         description="${pet.description.toString()}"

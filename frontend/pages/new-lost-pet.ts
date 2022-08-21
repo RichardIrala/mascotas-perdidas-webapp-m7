@@ -159,6 +159,10 @@ export const instanciar_new_lost_pet_page = () => {
               description
             );
             if (nuevaMascota.pet.id) {
+              state.setPetInfo({
+                petname: nuevaMascota.pet.name,
+                pictureURL: nuevaMascota.pet.pictureURL,
+              });
               state.checkUserToken("/pets/success-publication");
             } else console.error(nuevaMascota);
           } catch (error) {
