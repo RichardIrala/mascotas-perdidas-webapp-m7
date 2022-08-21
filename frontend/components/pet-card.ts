@@ -126,8 +126,6 @@ export const instanciar_pet_card = () => {
         });
         pet_found_button?.addEventListener("click", async (e) => {
           e.preventDefault();
-          // state.setPetInfo({ petname, pictureURL });
-          // state.checkUserToken(`/pets/report-info-pet/${idPet}`);
           const res = await api.setPetFounded(Number(idPet), token);
           if (res.message === "Nos alegra saber que encontraron a tu mascota") {
             //Al colocar la mascota como Encontrada se reinicia la página para ver los cambios ya hechos.
