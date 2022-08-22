@@ -1,6 +1,7 @@
 import * as express from "express";
 import * as path from "path";
 import { auth, changePassword, getMe, token } from "../controllers/Auth";
+import { sendEmailReport } from "../controllers/email-controller";
 import {
   getPets,
   getPetsCercaDe,
@@ -143,6 +144,28 @@ app.post("/pets/:petId/founded", authMiddleware, async (req, res) => {
     } else res.status(200).json(response);
   } catch (error) {
     res.json({ error: error.message });
+  }
+});
+
+//emails
+
+app.post("/pets/petinfo/email", authMiddleware, async (req, res) => {
+  const senderUserId = req._userId;
+  const { petId, information } = req.body;
+
+  if (!(senderUserId && petId)) {
+    res.json({
+      message:
+        "Faltan datos por enviar en el header (Authorization: token) o en el body (petId, information)",
+    });
+    return;
+  }
+
+  try {
+    const response = await sendEmailReport(petId, senderUserId, information);
+    res.json(response);
+  } catch (error) {
+    res.json({ message: error.message });
   }
 });
 
