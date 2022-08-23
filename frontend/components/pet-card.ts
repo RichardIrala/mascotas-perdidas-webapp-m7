@@ -116,17 +116,18 @@ export const instanciar_pet_card = () => {
         const token = state.getUserData().token;
         const petname = this.getAttribute("name");
         const pictureURL = this.getAttribute("pictureURL");
-        const idPet = this.getAttribute("idPet");
+        const petId = this.getAttribute("idPet");
+        console.log(petId);
         const report_infopet_button = $(".report-infopet__button");
         const pet_found_button = $(".pet-found");
         report_infopet_button?.addEventListener("click", (e) => {
           e.preventDefault();
-          state.setPetInfo({ petname, pictureURL });
-          state.checkUserToken(`/pets/report-info-pet/${idPet}`);
+          state.setPetInfo({ petname, pictureURL, petId });
+          state.checkUserToken(`/pets/report-info-pet/${petId}`);
         });
         pet_found_button?.addEventListener("click", async (e) => {
           e.preventDefault();
-          const res = await api.setPetFounded(Number(idPet), token);
+          const res = await api.setPetFounded(Number(petId), token);
           if (res.message === "Nos alegra saber que encontraron a tu mascota") {
             //Al colocar la mascota como Encontrada se reinicia la página para ver los cambios ya hechos.
             window.location.reload();
