@@ -1,6 +1,7 @@
 import { crearInput, inputCss } from "../funcional-components/input";
 import { crearTextArea, textareaCss } from "../funcional-components/textarea";
 import { state } from "../state";
+import { api } from "../utils/api";
 
 export const instanciar_report_infopet = () => {
   customElements.define(
@@ -26,8 +27,6 @@ export const instanciar_report_infopet = () => {
             <img class="pet-pic" src="${pictureURL}">
           </div>
           <form class="form">
-            ${crearInput("Asunto", "topic")}
-            ${crearInput("Tu nombre", "name")}
             ${crearTextArea("Información que sepas", "description")}
             <button class="form__button" type="submit">
               <button-rose-el>Enviar</button-rose-el>
@@ -77,6 +76,10 @@ export const instanciar_report_infopet = () => {
           padding: 0;
           border: none;
         }
+
+        .display-none {
+          display: none;
+        }
         `;
         this.shadow.appendChild(style);
         this.addListeners();
@@ -87,19 +90,27 @@ export const instanciar_report_infopet = () => {
         };
         const $ = (selector: `.${any}`) => this.shadow.querySelector(selector);
         const form = $(".form");
+        const petId = state.getPetInfo().petId;
+        const token = state.getUserData().token;
 
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
-          const titulo_para_el_email = getOneFormData(e, "topic");
-          const nombre_del_informante = getOneFormData(e, "name");
           const descripcion = getOneFormData(e, "description");
 
-          if (!(titulo_para_el_email && nombre_del_informante && descripcion)) {
+          if (!descripcion) {
             alert("faltan completar casillas del formulario.");
             return;
           }
 
-          console.log(titulo_para_el_email, nombre_del_informante, descripcion);
+          $(".form__button").classList.add("display-none");
+
+          const resjson = await api.sendReportEmail(petId, token, descripcion);
+
+          alert(
+            resjson.message === "Mensaje enviado"
+              ? resjson.message
+              : "Hubo un problema enviando el mensaje"
+          );
         });
       }
     }

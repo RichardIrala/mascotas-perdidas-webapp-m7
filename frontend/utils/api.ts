@@ -115,7 +115,26 @@ export const api = {
   async setPetFounded(petId: number, token: string) {
     const res = await fetch(`/pets/${petId}/founded`, {
       method: "POST",
-      headers: { Authorization: `Bearer ${token}` },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const resJson = await res.json();
+
+    return resJson;
+  },
+
+  async sendReportEmail(petId: number, token: string, information: string) {
+    const raw = JSON.stringify({ petId, information });
+
+    const res = await fetch("/pets/petinfo/email", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: raw,
     });
 
     const resJson = await res.json();
