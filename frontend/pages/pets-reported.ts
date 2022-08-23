@@ -24,7 +24,9 @@ export const instanciar_pets_reported_page = () => {
           <title-el>Mascotas reportadas por ti</title-el>
         </div>
         <div class="contenedor"></div>
-        <h2>No reportaste más mascotas :3</h2>
+        <div class="padding-b20">
+          <general-text-el>No reportaste más mascotas :3</general-text-el>
+        </div>
         `;
         const style = document.createElement("style");
         style.innerHTML = `
@@ -53,6 +55,10 @@ export const instanciar_pets_reported_page = () => {
             .foto-mascota {
                 height: 180px;
                 max-width: 350px;
+            }
+
+            .padding-b20 {
+              padding-bottom: 20px;
             }
         `;
         shadow.appendChild(style);

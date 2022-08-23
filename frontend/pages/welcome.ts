@@ -26,8 +26,9 @@ export const instanciar_welcome_page = () => {
             <div class="pet-cards">
                 
             </div>
-            <h1>No hay más mascotas cerca</h1>
-            
+            <div class="padding-b20">
+              <general-text-el>No hay más mascotas cerca</general-text-el>
+            </div>     
         `;
         style.innerHTML = `
         .marco-del-mapa {
@@ -50,6 +51,10 @@ export const instanciar_welcome_page = () => {
             gap: 20px;
             margin: auto;
             max-width: 1200px;
+        }
+
+        .padding-b20 {
+          padding-bottom: 20px;
         }
         `;
         this.appendChild(style);

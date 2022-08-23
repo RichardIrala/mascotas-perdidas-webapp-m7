@@ -15,6 +15,7 @@ export const instanciar_report_infopet = () => {
         this.render();
       }
       render() {
+        state.checkUserToken();
         const infopet = state.getPetInfo();
         const pictureURL = infopet.pictureURL;
         const petname = infopet.petname;
