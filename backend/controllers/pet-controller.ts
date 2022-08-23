@@ -114,6 +114,43 @@ export const petFounded = async (id: number, UserId: number) => {
   }
 };
 
+//Modifica datos de una mascota reportada
+
+export const modifyPetInfo = async (
+  UserId: number,
+  PetId: number,
+  { last_location, lat, lng }
+) => {
+  try {
+    const pet = await Pet.update(
+      { last_location, lat, lng },
+      { where: { UserId, id: PetId } }
+    );
+
+    const record = {
+      objectID: PetId,
+      last_location,
+      _geoloc: {
+        lat,
+        lng,
+      },
+    };
+    const newLocationAlgolia = await indexAlgolia
+      .saveObject(record)
+      .wait()
+      .catch((err) => err);
+
+    if (pet[0] == 1 && newLocationAlgolia.objectID == PetId) {
+      console.log(newLocationAlgolia);
+      return { message: "Datos actualizados" };
+    } else {
+      return { message: "Datos no actualizados" };
+    }
+  } catch (error) {
+    return { message: error.message };
+  }
+};
+
 function petsOfIds(algoliaData: any[], allPets: any[]) {
   const ids = algoliaData.map((data) => data.objectID);
   const pets = allPets.filter((pet) => {

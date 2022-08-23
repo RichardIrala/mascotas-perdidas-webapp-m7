@@ -5,6 +5,7 @@ import { sendEmailReport } from "../controllers/email-controller";
 import {
   getPets,
   getPetsCercaDe,
+  modifyPetInfo,
   newPet,
   petFounded,
   petsReportedBy,
@@ -139,6 +140,28 @@ app.post("/pets/:petId/founded", authMiddleware, async (req, res) => {
     } else res.status(200).json(response);
   } catch (error) {
     res.json({ error: error.message });
+  }
+});
+
+app.post("/pets/modify-pet", authMiddleware, async (req, res) => {
+  try {
+    const UserId = req._userId;
+    const { petId } = req.query;
+    const { last_location, lat, lng } = req.body;
+    if (lat < -90 || lat > 90 || lng < -90 || lng > 90) {
+      res.json({
+        message: "Los parámetros lat y lng deben tener un valor de -90 a 90",
+      });
+      return;
+    }
+    const cambios = await modifyPetInfo(UserId, Number(petId), {
+      last_location,
+      lat,
+      lng,
+    });
+    res.json(cambios);
+  } catch (error) {
+    res.json({ message: error.message });
   }
 });
 
