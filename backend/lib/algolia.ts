@@ -1,10 +1,10 @@
 import algoliasearch from "algoliasearch";
 
-// Connect and authenticate with your Algolia app
+// Conecta y autentica con nuestra app de algolia
 const client = algoliasearch(
   process.env.ALGOLIA_APP_ID,
   process.env.ALGOLIA_API_KEY
 );
 
-// Create a new index and add a record
+// Crea un nuevo index y record
 export const indexAlgolia = client.initIndex("desafio-mod-7");
