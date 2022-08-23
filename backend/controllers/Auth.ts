@@ -39,7 +39,7 @@ export const auth = async (
   }
 };
 
-//Esto me devuelve mi token (id encryptado con revision de autenticidad)                                                                 <= ACTUAL TRABAJO en revision
+//Esto me devuelve mi token (id encryptado con revision de autenticidad)
 export const token = async (password: string, email: string) => {
   try {
     const passwordHasheada = hashPassword(password);
@@ -56,6 +56,7 @@ export const token = async (password: string, email: string) => {
   }
 };
 
+//Devuelve la información del usuario
 export const getMe = async (id: number) => {
   const myUserInfo = await User.findByPk(id);
   return myUserInfo;
