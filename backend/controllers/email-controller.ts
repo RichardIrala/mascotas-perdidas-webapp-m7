@@ -3,6 +3,7 @@ import { Pet, User } from "../models/index";
 
 const SENDGRID_SENDER = process.env.SENDGRID_SENDER;
 
+//Este controlador se encarga de enviar un email desde el usuario (sender) hacia el dueño de la mascota.
 export const sendEmailReport = async (
   petId: number,
   senderUserId: number,

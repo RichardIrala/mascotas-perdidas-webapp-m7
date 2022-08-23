@@ -2,6 +2,7 @@ import { cloudinary } from "../lib/cloudinary";
 import { Pet } from "../models/index";
 import { indexAlgolia } from "../lib/algolia";
 
+//Subida de imagen a Cloudinary
 const uploadImage = async (pictureURL: string) => {
   if (pictureURL) {
     const imagen = await cloudinary.uploader.upload(pictureURL, {
@@ -13,6 +14,7 @@ const uploadImage = async (pictureURL: string) => {
   }
 };
 
+//Creación de una nueva mascota a los reportes
 export const newPet = async (
   UserId: number,
   name: string,
@@ -54,12 +56,13 @@ export const newPet = async (
   }
 };
 
+//Retorna todas las mascotas registradas
 export const getPets = async () => {
   return await Pet.findAll();
 };
 
+//Retorna todas las mascotas cerca de X ubicación
 export const getPetsCercaDe = async (lat: number, lng: number) => {
-  // Search the index and print the results
   try {
     const { hits } = await indexAlgolia.search("", {
       aroundLatLng: `${lat}, ${lng}`,
@@ -79,6 +82,7 @@ export const getPetsCercaDe = async (lat: number, lng: number) => {
   }
 };
 
+//Busca y retorna pets reportados por un usuario particular
 export const petsReportedBy = async (UserId: string) => {
   try {
     const pets = await Pet.findAll({ where: { UserId } });
