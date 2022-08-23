@@ -31,11 +31,6 @@ app.post("/users/exist", async (req, res) => {
   }
 });
 
-app.get("/sync-force", async (req, res) => {
-  await sequelize.sync({ force: true });
-  res.json({ message: "sync completo" });
-});
-
 //Crear un usuario
 app.post("/auth", async (req, res) => {
   try {
@@ -172,4 +167,10 @@ app.post("/pets/petinfo/email", authMiddleware, async (req, res) => {
 //todo lo que no coincida con una ruta, devuelve el index.html
 app.get("*", (req, res) => {
   res.sendFile(frontend + "/index.html");
+});
+
+//Reinicia la BD - util para usar en el deploy
+app.get("/sync-force", async (req, res) => {
+  await sequelize.sync({ force: true });
+  res.json({ message: "sync completo" });
 });
