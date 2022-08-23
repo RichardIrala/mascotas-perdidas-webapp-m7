@@ -9,6 +9,7 @@ import { instanciar_new_lost_pet_page } from "./pages/new-lost-pet";
 import { instanciar_pets_reported_page } from "./pages/pets-reported";
 import { instanciar_send_email_petinfo_page } from "./pages/send-email-petinfo";
 import { instanciar_success_publication_page } from "./pages/success-publication";
+import { instanciar_modify_pet_page } from "./pages/modify-pet";
 
 //components
 import { instanciar_button_rose } from "./components/button-rose";
@@ -50,6 +51,7 @@ function instanciarPages() {
   instanciar_pets_reported_page();
   instanciar_send_email_petinfo_page();
   instanciar_success_publication_page();
+  instanciar_modify_pet_page();
 }
 
 function instanciarComponentes() {

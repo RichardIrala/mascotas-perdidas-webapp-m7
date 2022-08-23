@@ -162,6 +162,7 @@ export const instanciar_new_lost_pet_page = () => {
               state.setPetInfo({
                 petname: nuevaMascota.pet.name,
                 pictureURL: nuevaMascota.pet.pictureURL,
+                petId: nuevaMascota.pet.id,
               });
               state.checkUserToken("/pets/success-publication");
             } else console.error(nuevaMascota);

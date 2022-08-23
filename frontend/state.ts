@@ -5,6 +5,7 @@ export const state = {
     userData: {},
     infoPetForEmail: {},
   },
+  petToModifyId: "",
   listeners: [],
 
   init() {
@@ -99,5 +100,12 @@ export const state = {
     const cs = this.getState();
 
     return cs.infoPetForEmail;
+  },
+
+  setPetToModifyId(id: number) {
+    this.petToModifyId = id;
+  },
+  getPetToModifyId() {
+    return this.petToModifyId;
   },
 };

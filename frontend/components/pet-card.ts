@@ -3,6 +3,7 @@ import { api } from "../utils/api";
 
 export const instanciar_pet_card = () => {
   const foundedIcon = require("../assets/ok-icon.svg");
+  const editIcon = require("../assets/edit-icon.svg");
   customElements.define(
     "pet-card-el",
     class extends HTMLElement {
@@ -40,10 +41,12 @@ export const instanciar_pet_card = () => {
                     ${
                       !remove
                         ? `<div class="info-container__report-info">
+                            <div class="container-null"></div>
                             <a href="" class="report-infopet__button">REPORTAR INFORMACION</a>
                           </div>
                           `
                         : `<div class="info-container__report-info">
+                            <img class="edit-pet" src=${editIcon}>
                             <img class="pet-found" src=${foundedIcon}>
                           </div>`
                     }
@@ -91,12 +94,13 @@ export const instanciar_pet_card = () => {
               }
               .info-container__report-info {
                 display: flex;
-                align-items: flex-end;
+                flex-direction: column;
+                justify-content: space-between;
                 max-width: 125px;
                 text-align: end;
               }
               
-              .pet-found {
+              .edit-pet, .pet-found {
                 height: 40px;
                 width: 40px;
                 cursor: pointer;
@@ -120,11 +124,13 @@ export const instanciar_pet_card = () => {
         console.log(petId);
         const report_infopet_button = $(".report-infopet__button");
         const pet_found_button = $(".pet-found");
+        const pet_modify_button = $(".edit-pet");
         report_infopet_button?.addEventListener("click", (e) => {
           e.preventDefault();
           state.setPetInfo({ petname, pictureURL, petId });
           state.checkUserToken(`/pets/report-info-pet/${petId}`);
         });
+
         pet_found_button?.addEventListener("click", async (e) => {
           e.preventDefault();
           const res = await api.setPetFounded(Number(petId), token);
@@ -132,6 +138,11 @@ export const instanciar_pet_card = () => {
             //Al colocar la mascota como Encontrada se reinicia la página para ver los cambios ya hechos.
             window.location.reload();
           } else alert(res.message);
+        });
+
+        pet_modify_button?.addEventListener("click", () => {
+          state.setPetToModifyId(Number(petId));
+          state.checkUserToken("/pets/modify");
         });
       }
     }
