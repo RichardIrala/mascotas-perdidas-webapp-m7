@@ -7,4 +7,4 @@ const client = algoliasearch(
 );
 
 // Crea un nuevo index y record
-export const indexAlgolia = client.initIndex("desafio-mod-7");
+export const indexAlgolia = client.initIndex(process.env.ALGOLIA_INDEX);
