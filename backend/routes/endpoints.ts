@@ -188,10 +188,10 @@ app.post("/pets/petinfo/email", authMiddleware, async (req, res) => {
 });
 
 //Reinicia la BD - util para usar en el deploy
-// app.get("/sync-force", async (req, res) => {
-//   await sequelize.sync({ force: true });
-//   res.json({ message: "sync completo" });
-// });
+app.get("/sync-force", async (req, res) => {
+  await sequelize.sync({ force: true });
+  res.json({ message: "sync completo" });
+});
 
 //todo lo que no coincida con una ruta, devuelve el index.html
 app.get("*", (req, res) => {
