@@ -14,7 +14,6 @@ import { instanciar_success_publication_page } from "./pages/success-publication
 import { instanciar_button_rose } from "./components/button-rose";
 import { instanciar_general_text } from "./components/general-text";
 import { instanciar_header } from "./components/header";
-import { instanciar_input } from "./components/input";
 import { instanciar_pet_card } from "./components/pet-card";
 import { instanciar_title } from "./components/title";
 import { instanciar_logout } from "./components/logout";
@@ -57,7 +56,6 @@ function instanciarComponentes() {
   instanciar_button_rose();
   instanciar_general_text();
   instanciar_header();
-  instanciar_input();
   instanciar_pet_card();
   instanciar_title();
   instanciar_logout();
