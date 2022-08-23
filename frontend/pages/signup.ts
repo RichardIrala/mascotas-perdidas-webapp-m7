@@ -93,7 +93,9 @@ export const instanciar_signup_page = () => {
           const nombre = getOneFormData(e, "name");
           const password = getOneFormData(e, "password");
           const repeated_password = getOneFormData(e, "repeated_password");
+
           if (password !== repeated_password) {
+            alert("Las contraseñas no coinciden");
             console.error("Las contraseñas no coinciden");
             return;
           }
@@ -108,6 +110,7 @@ export const instanciar_signup_page = () => {
                 : console.error(res.message);
             });
           } else {
+            alert("No se llenaron todas las casillas");
             console.error("No se llenaron todas las casillas");
           }
         });

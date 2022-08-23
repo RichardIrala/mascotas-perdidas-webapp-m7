@@ -84,6 +84,7 @@ export const instanciar_user_email = () => {
           e.preventDefault();
           const email = getOneFormData(e, "email");
           if (!email) {
+            alert("Ingrese un email.");
             console.error("Ingrese un email.");
             return;
           }
