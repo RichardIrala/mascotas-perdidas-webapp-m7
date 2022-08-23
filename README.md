@@ -3,6 +3,7 @@ Creada por Richard Irala
 GitHub: <a href="https://github.com/RichardIrala">Richard Irala</a>
 
 ## _Deploy:_ <a href="https://mascotas-perdidas-webapp-m7.herokuapp.com/">Mascotas perdidas</a>
+## _Documentación de la API:_ <a href="https://documenter.getpostman.com/view/21426281/VUqrMGUB">Endpoints</a>
 
 ## _Tecnologias_
 
@@ -43,5 +44,7 @@ CLOUDINARY_API_KEY
 CLOUDINARY_API_SECRET
 JWT_SECRET
 MAPBOX_TOKEN
+SENDGRID_API_KEY = "Pertenece a la key la cual se solicita a sendgrids"
+SENDGRID_SENDER = "Este valor equivale al correo que va a enviar el email. Debe estar registrado en tu sengrid"
 
 ```
