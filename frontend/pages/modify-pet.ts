@@ -1,5 +1,6 @@
 import { crearInput, inputCss } from "../funcional-components/input";
 import { state } from "../state";
+import { api } from "../utils/api";
 
 export const instanciar_modify_pet_page = () => {
   const editIcon = require("../assets/edit-icon.svg");
@@ -76,8 +77,39 @@ export const instanciar_modify_pet_page = () => {
             }
         `;
         shadow.appendChild(style);
+        this.addListeners();
       }
-      addListeners() {}
+      addListeners() {
+        const $ = (selector: `.${any}`) => this.shadow.querySelector(selector);
+        const form = $(".form");
+
+        const getOneFormData = (event: Event, inputName: string) => {
+          return event.target[inputName].value;
+        };
+        const token = state.getUserData().token;
+        const petId = state.getPetToModifyId();
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const last_location = getOneFormData(e, "last_location");
+          const lat = Number(getOneFormData(e, "lat"));
+          const lng = Number(getOneFormData(e, "lng"));
+
+          if (!(last_location && lat && lng)) {
+            alert("Faltan datos");
+            return;
+          } else {
+            const resjson = await api.modifyPetinfo(token, petId, {
+              last_location,
+              lat,
+              lng,
+            });
+            alert(resjson.message);
+            resjson.message === "Datos actualizados"
+              ? state.checkUserToken("/pets/reported-by-me")
+              : "";
+          }
+        });
+      }
     }
   );
 };
