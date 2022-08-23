@@ -88,10 +88,10 @@ export const state = {
   getUserName() {
     return this.getUserData().name;
   },
-  setPetInfo({ petname, pictureURL }) {
+  setPetInfo({ petname, pictureURL, petId }) {
     const cs = this.getState();
 
-    cs.infoPetForEmail = { petname, pictureURL };
+    cs.infoPetForEmail = { petname, pictureURL, petId };
 
     this.setState(cs);
   },
