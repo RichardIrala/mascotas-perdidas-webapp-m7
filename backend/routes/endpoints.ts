@@ -143,7 +143,7 @@ app.post("/pets/:petId/founded", authMiddleware, async (req, res) => {
   }
 });
 
-app.post("/pets/modify-pet", authMiddleware, async (req, res) => {
+app.patch("/pets/modify-pet", authMiddleware, async (req, res) => {
   try {
     const UserId = req._userId;
     const { petId } = req.query;
