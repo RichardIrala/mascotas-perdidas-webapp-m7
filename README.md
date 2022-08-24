@@ -32,6 +32,7 @@ Estando ubicados en mascotas-perdidas-webapp-m7/
 Variables de entorno...
 
 ```sh
+ALGOLIA_INDEX = "Esta variable de entorno indica el índice en el que se van a guardar los datos de Algolia que se vayan creando"
 ALGOLIA_APP_ID
 ALGOLIA_API_KEY
 SEQUELIZE_DIALECT="postgres"
