@@ -83,10 +83,10 @@ app.get("/users/me", authMiddleware, async (req, res) => {
 app.post("/pets", authMiddleware, async (req, res) => {
   const UserId = req._userId;
   const { name, last_location, lat, lng, description, pictureURL } = req.body;
-  if (lat > 90 || lat < -90 || lng > 90 || lat < -90) {
+  if (lat > 90 || lat < -90 || lng > -180 || lng < 180) {
     res.json({
       message:
-        "Los valores para la latitud y la longitud solo pueden ser desde -90 hasta 90.",
+        "Los valores para la latitud y la longitud solo pueden ser desde -90 > latitud < 90 y -180 < longitud < 180.",
     });
     return;
   }
