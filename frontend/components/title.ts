@@ -29,6 +29,8 @@ export const instanciar_title = () => {
                 }
                 
                 .title {
+                  padding: 0 20px;
+                  text-align: center;
                   font-size: 40px;
                   ${state.setFont(700)}
                 }
