@@ -3,11 +3,15 @@ import { crearInput, inputCss } from "../funcional-components/input";
 import { state } from "../state";
 import { api } from "../utils/api";
 import { Dropzone } from "dropzone";
+import { initMap } from "../components/mapbox";
+
 export const instanciar_new_lost_pet_page = () => {
   //instancia del customElement nuevo
   customElements.define(
     "new-lost-pet-el",
     class extends HTMLElement {
+      lat: number = NaN;
+      lng: number = NaN;
       constructor() {
         super();
       }
@@ -29,8 +33,8 @@ export const instanciar_new_lost_pet_page = () => {
                       <button-rose-el id="foto-input">Foto</button-rose-el>
                       <div class="foto_pet"></div>
                       ${crearInput("Visto ultima vez en", "last_location")}
-                      ${crearInput("Latitud", "lat")}
-                      ${crearInput("Longitud", "lng")}
+                      <div id="mapLatLng" style="width: 335px; height: 335px"></div>
+                      <general-text-el style="width: 335px">Necesitamos que también marques el punto en el mapa</general-text-el>
                       ${crearInput("Descripción", "description")}
                       <button class="form__button" type="submit">
                         <button-rose-el>Publicar</button-rose-el>
@@ -96,8 +100,14 @@ export const instanciar_new_lost_pet_page = () => {
               }
             `;
         this.appendChild(style);
-        this.addListeners();
+        this.addListeners();      
+        this.renderMapbox();
       }
+
+      renderMapbox() {
+        initMap("mapLatLng", { copyUbi: true, getMascotasCerca: false });
+      }
+
       addListeners() {
         const $ = (selector: `.${any}`) => this.querySelector(selector);
         const form = $(".form");
@@ -136,13 +146,13 @@ export const instanciar_new_lost_pet_page = () => {
 
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
+          const { lat, lng } = state.getNewPetCoords();
           const token = state.getUserData().token;
           const pictureURL = info.pictureURL;
           const name = getOneFormData(e, "name");
           const last_location = getOneFormData(e, "last_location");
-          const lat = Number(getOneFormData(e, "lat"));
-          const lng = Number(getOneFormData(e, "lng"));
           const description = getOneFormData(e, "description");
+
           if (!(pictureURL && last_location && name && lng && lng)) {
             alert("Falta completar datos en el Formulario");
             return;
@@ -164,19 +174,19 @@ export const instanciar_new_lost_pet_page = () => {
                 pictureURL: nuevaMascota.pet.pictureURL,
                 petId: nuevaMascota.pet.id,
               });
+              state.clearNewPetCoords();
               state.checkUserToken("/pets/success-publication");
             } else console.error(nuevaMascota);
           } catch (error) {
             console.error(error.message);
           }
         });
+      }
 
-        //
-        //
-        //
+
+      getLatLng() {
+        return { lat: this.lat, lng: this.lng };
       }
     }
   );
 };
-
-//A esta page le faltaría redirigir todo a una nueva página. Podría ser "success" y la imagen y nombre de su michi

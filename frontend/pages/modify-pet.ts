@@ -1,3 +1,4 @@
+import { initMap } from "../components/mapbox";
 import { crearInput, inputCss } from "../funcional-components/input";
 import { state } from "../state";
 import { api } from "../utils/api";
@@ -7,7 +8,6 @@ export const instanciar_modify_pet_page = () => {
   customElements.define(
     "modify-pet-el",
     class extends HTMLElement {
-      shadow = this.attachShadow({ mode: "open" });
       constructor() {
         super();
       }
@@ -15,9 +15,8 @@ export const instanciar_modify_pet_page = () => {
         this.render();
       }
       render() {
-        const shadow = this.shadow;
         const style = document.createElement("style");
-        shadow.innerHTML = `
+        this.innerHTML = `
             <header-el></header-el>
             <div class="principal-container">
                 <div class="title-container">
@@ -26,8 +25,7 @@ export const instanciar_modify_pet_page = () => {
                 <form class="form">
                     <img class="edit-icon" src=${editIcon}>
                     ${crearInput("Ultima vez visto en", "last_location")}
-                    ${crearInput("latitud", "lat")}
-                    ${crearInput("longitud", "lng")}
+                    <div id="modifyPetMapbox" style="width: 335px; height: 335px"></div>
                     <button class="form__button" type="submit">
                         <button-rose-el>Modificar</button-rose-el>
                     </button>
@@ -76,11 +74,17 @@ export const instanciar_modify_pet_page = () => {
               width: fit-content;
             }
         `;
-        shadow.appendChild(style);
+        this.appendChild(style);
         this.addListeners();
+        this.renderMapbox();
       }
+
+      renderMapbox() {
+        initMap("modifyPetMapbox", { copyUbi: true, getMascotasCerca: false });
+      }
+
       addListeners() {
-        const $ = (selector: `.${any}`) => this.shadow.querySelector(selector);
+        const $ = (selector: `.${any}`) => this.querySelector(selector);
         const form = $(".form");
 
         const getOneFormData = (event: Event, inputName: string) => {
@@ -91,8 +95,7 @@ export const instanciar_modify_pet_page = () => {
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
           const last_location = getOneFormData(e, "last_location");
-          const lat = Number(getOneFormData(e, "lat"));
-          const lng = Number(getOneFormData(e, "lng"));
+          const { lat, lng } = state.getNewPetCoords();
 
           if (!(last_location && lat && lng)) {
             alert("Faltan datos");

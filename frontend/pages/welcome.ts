@@ -11,7 +11,6 @@ export const instanciar_welcome_page = () => {
       }
       connectedCallback() {
         this.render();
-        this.renderMapbox();
       }
       render() {
         const style = document.createElement("style");
@@ -59,21 +58,9 @@ export const instanciar_welcome_page = () => {
         `;
         this.appendChild(style);
         this.addListeners();
+        this.renderMapbox();
       }
       addListeners() {
-        // const aceptoGeoLoc = (position) => {
-        //   console.log(position.coords.latitude, position.coords.longitude);
-        //   Router.go("/welcome");
-        // };
-        // const noAceptoGeoLoc = () => {
-        //   console.error("Acceso a la ubicación denegado");
-        // };
-        // if (!!navigator.geolocation) {
-        //   window.navigator.geolocation.getCurrentPosition(
-        //     aceptoGeoLoc,
-        //     noAceptoGeoLoc
-        //   );
-        // }
         const mascotasCercaMio = async () => {
           const petsCardsContainer = this.querySelector(".pet-cards");
           const aceptoGeoLoc = async (position) => {
@@ -87,7 +74,6 @@ export const instanciar_welcome_page = () => {
                 ? ""
                 : mascotas
                     .map((pet) => {
-                      // console.log(pet);
                       if (pet.founded == true) {
                         return "";
                       } else
@@ -118,7 +104,7 @@ export const instanciar_welcome_page = () => {
         mascotasCercaMio();
       }
       renderMapbox() {
-        initMap("mapboxmap");
+        initMap("mapboxmap", { copyUbi: false, getMascotasCerca: true });
       }
     }
   );

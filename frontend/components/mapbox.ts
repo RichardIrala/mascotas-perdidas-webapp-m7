@@ -1,7 +1,8 @@
 import * as mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import { state } from "../state";
 import { api } from "../utils/api";
-export function initMap(id) {
+export function initMap(id, { copyUbi, getMascotasCerca }) {
   mapboxgl.accessToken = process.env.MAPBOX_TOKEN;
   const map = new mapboxgl.Map({
     container: id, // container ID
@@ -12,13 +13,15 @@ export function initMap(id) {
   });
 
   const aceptoGeoLoc = async (position) => {
-    const mascotas = await api.mascotasCercaDe(
-      position.coords.latitude,
-      position.coords.longitude
-    );
-    if (mascotas.length !== 0) {
-      for (const latlong of mascotas) {
-        new mapboxgl.Marker().setLngLat(latlong).addTo(map);
+    if (getMascotasCerca) {
+      const mascotas = await api.mascotasCercaDe(
+        position.coords.latitude,
+        position.coords.longitude
+      );
+      if (mascotas.length !== 0) {
+        for (const latlong of mascotas) {
+          new mapboxgl.Marker().setLngLat(latlong).addTo(map);
+        }
       }
     }
   };
@@ -39,6 +42,18 @@ export function initMap(id) {
       showUserHeading: true,
     })
   );
+
+  if (copyUbi) {
+    map.on("click", async (e) => {
+      // marcador en el mapa
+      const marker = await new mapboxgl.Marker().setLngLat(e.lngLat).addTo(map);
+      const { lat, lng } = e.lngLat;
+      // propiedad a la que se le va a setear las coords
+      state.setNewPetCoords(lat, lng);
+
+      console.log(e.lngLat);
+    });
+  }
 
   if (!!navigator.geolocation) {
     window.navigator.geolocation.getCurrentPosition(
