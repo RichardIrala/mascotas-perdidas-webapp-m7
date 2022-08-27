@@ -6,6 +6,7 @@ export const state = {
     infoPetForEmail: {},
   },
   petToModifyId: "",
+  newPetCoords: {},
   listeners: [],
 
   init() {
@@ -16,6 +17,8 @@ export const state = {
       // Si no hay data, que no haga nada
       return;
     }
+
+    this.clearNewPetCoords();
     // Pero si la hay, que la setee en el estado
     this.setState(localData);
   },
@@ -108,4 +111,15 @@ export const state = {
   getPetToModifyId() {
     return this.petToModifyId;
   },
+
+  setNewPetCoords(lat: number, lng: number) {
+    this.newPetCoords.lat = lat;
+    this.newPetCoords.lng = lng;
+  },
+  getNewPetCoords() {
+    return this.newPetCoords;
+  },
+  clearNewPetCoords() {
+    this.newPetCoords = {};
+  }
 };
