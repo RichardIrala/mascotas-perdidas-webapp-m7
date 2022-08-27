@@ -34,7 +34,7 @@ export const instanciar_pet_card = () => {
                 </div>
                 <div class="info-container">
                     <div class="pet-textinfo-container">
-                        <title-el>${name}</title-el>
+                        <title-el class="set-limit-title">${name}</title-el>
                         <h3>${last_location}</h3>
                         <h3>Encontrado: ${founded == "true" ? "Sí" : "No"}</h3>
                     </div>
@@ -62,7 +62,7 @@ export const instanciar_pet_card = () => {
                   margin: 0;
               }
               .card-container {
-                width: 335px;
+                min-width: 335px;
                 border: solid;
                 border-radius: 4px;
                 box-shadow: 5px 5px 15px 5px #000000;
@@ -77,6 +77,11 @@ export const instanciar_pet_card = () => {
                 justify-content: center;
                 background: red;
               }
+
+              .set-limit-title {
+                max-width: 250px;
+              }
+
               .pet-pic-container--img {
                 height: 150px;
                 max-width: 330px;
@@ -121,7 +126,6 @@ export const instanciar_pet_card = () => {
         const petname = this.getAttribute("name");
         const pictureURL = this.getAttribute("pictureURL");
         const petId = this.getAttribute("idPet");
-        console.log(petId);
         const report_infopet_button = $(".report-infopet__button");
         const pet_found_button = $(".pet-found");
         const pet_modify_button = $(".edit-pet");
