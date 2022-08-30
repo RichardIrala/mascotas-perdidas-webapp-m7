@@ -75,7 +75,7 @@ export const instanciar_pet_card = () => {
               .pet-pic-container {
                 display: flex;
                 justify-content: center;
-                background: red;
+                background: #F74FA3;
               }
 
               .set-limit-title {
