@@ -11,8 +11,8 @@ export const state = {
   listeners: [],
 
   init() {
-    // Busco data existente en el sessionStorage
-    const localData = JSON.parse(sessionStorage.getItem("mod7-desafio"));
+    // Busco data existente en el localStorage
+    const localData = JSON.parse(localStorage.getItem("mod7-desafio"));
 
     if (!localData) {
       // Si no hay data, que no haga nada

@@ -34,9 +34,9 @@ import { state } from "./state";
 
 function iniciarState() {
   state.init();
-  sessionStorage.setItem("mod7-desafio", JSON.stringify(state.getState()));
+  localStorage.setItem("mod7-desafio", JSON.stringify(state.getState()));
   state.subscribe(() => {
-    sessionStorage.setItem("mod7-desafio", JSON.stringify(state.getState()));
+    localStorage.setItem("mod7-desafio", JSON.stringify(state.getState()));
   });
 }
 
