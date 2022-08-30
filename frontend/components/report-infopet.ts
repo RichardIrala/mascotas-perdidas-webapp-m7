@@ -112,6 +112,10 @@ export const instanciar_report_infopet = () => {
               ? resjson.message
               : "Hubo un problema enviando el mensaje"
           );
+          if (resjson.message === "Mensaje enviado") {
+            state.clearPetInfo();
+            state.checkUserToken("/welcome")
+          }
         });
       }
     }

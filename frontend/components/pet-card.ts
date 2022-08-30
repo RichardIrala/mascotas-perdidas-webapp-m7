@@ -146,6 +146,7 @@ export const instanciar_pet_card = () => {
 
         pet_modify_button?.addEventListener("click", () => {
           state.setPetToModifyId(Number(petId));
+          state.setPetToModifyPic(pictureURL)
           state.checkUserToken("/pets/modify");
         });
       }

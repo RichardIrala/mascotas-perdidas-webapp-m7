@@ -6,6 +6,7 @@ export const state = {
     infoPetForEmail: {},
   },
   petToModifyId: "",
+  petToModifyPic: "",
   newPetCoords: {},
   listeners: [],
 
@@ -99,6 +100,13 @@ export const state = {
 
     this.setState(cs);
   },
+  clearPetInfo() {
+    const cs = this.getState();
+
+    cs.infoPetForEmail = {};
+
+    this.setState(cs);
+  },
   getPetInfo() {
     const cs = this.getState();
 
@@ -110,6 +118,13 @@ export const state = {
   },
   getPetToModifyId() {
     return this.petToModifyId;
+  },
+
+  setPetToModifyPic(picURL: string) {
+    this.petToModifyPic = picURL;
+  },
+  getPetToModifyPic() {
+    return this.petToModifyPic;
   },
 
   setNewPetCoords(lat: number, lng: number) {
