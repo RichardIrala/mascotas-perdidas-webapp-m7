@@ -145,9 +145,9 @@ export const api = {
   async modifyPetinfo(
     token: string,
     petId: number,
-    { last_location, lat, lng }
+    { last_location, lat, lng, name }
   ) {
-    const raw = JSON.stringify({ last_location, lat, lng });
+    const raw = JSON.stringify({ last_location, lat, lng, name });
 
     const res = await fetch(`/pets/modify-pet?petId=${petId}`, {
       method: "PATCH",

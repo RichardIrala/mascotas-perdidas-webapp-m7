@@ -147,7 +147,7 @@ app.patch("/pets/modify-pet", authMiddleware, async (req, res) => {
   try {
     const UserId = req._userId;
     const { petId } = req.query;
-    const { last_location, lat, lng } = req.body;
+    const { last_location, lat, lng, name } = req.body;
     if (lat < -90 || lat > 90 || lng < -90 || lng > 90) {
       res.json({
         message: "Los parámetros lat y lng deben tener un valor de -90 a 90",
@@ -158,6 +158,7 @@ app.patch("/pets/modify-pet", authMiddleware, async (req, res) => {
       last_location,
       lat,
       lng,
+      name
     });
     res.json(cambios);
   } catch (error) {

@@ -24,6 +24,7 @@ export const instanciar_modify_pet_page = () => {
                 </div>
                 <form class="form">
                     <img class="edit-icon" src=${editIcon}>
+                    ${crearInput("Nombre de tu mascota", "petname")}
                     ${crearInput("Ultima vez visto en", "last_location")}
                     <div id="modifyPetMapbox" style="width: 335px; height: 335px"></div>
                     <button class="form__button" type="submit">
@@ -67,7 +68,7 @@ export const instanciar_modify_pet_page = () => {
                 margin: auto;
             }
             ${inputCss()}
-            
+
             .form__button {
               padding: 0;
               border: none;
@@ -95,9 +96,12 @@ export const instanciar_modify_pet_page = () => {
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
           const last_location = getOneFormData(e, "last_location");
+
+          //Este es el petname, se llame name la constante porque es lo que pide api.modifyPetinfo
+          const name = getOneFormData(e, "petname");
           const { lat, lng } = state.getNewPetCoords();
 
-          if (!(last_location && lat && lng)) {
+          if (!(last_location && lat && lng && name)) {
             alert("Faltan datos");
             return;
           } else {
@@ -105,6 +109,7 @@ export const instanciar_modify_pet_page = () => {
               last_location,
               lat,
               lng,
+              name
             });
             alert(resjson.message);
             resjson.message === "Datos actualizados"
