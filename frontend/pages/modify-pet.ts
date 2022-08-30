@@ -178,8 +178,8 @@ export const instanciar_modify_pet_page = () => {
           const name = getOneFormData(e, "petname");
           const { lat, lng } = state.getNewPetCoords();
 
-          if (!(last_location && lat && lng && name && pictureURL)) {
-            alert("Faltan datos");
+          if (!(last_location || lat || lng || name || pictureURL)) {
+            alert("Se requiere mínimo un dato");
             return;
           } else {
             const resjson = await api.modifyPetinfo(token, petId, {

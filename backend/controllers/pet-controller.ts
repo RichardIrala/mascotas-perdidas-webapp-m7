@@ -123,10 +123,29 @@ export const modifyPetInfo = async (
 ) => {
   try {
     const newPic = await uploadImage(pictureURL);
-    const pet = await Pet.update(
-      { last_location, lat, lng, name, pictureURL: newPic },
-      { where: { UserId, id: PetId } }
-    );
+    const object: any = {};
+
+    if (last_location) {
+      object.last_location = last_location;
+    }
+
+    if (lat) {
+      object.lat = lat;
+    }
+
+    if (lng) {
+      object.lng = lng;
+    }
+
+    if (name) {
+      object.name = name;
+    }
+
+    if (newPic) {
+      object.pictureURL = newPic;
+    }
+
+    const pet = await Pet.update(object, { where: { UserId, id: PetId } });
 
     const record = {
       objectID: PetId,
