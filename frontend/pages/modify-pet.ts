@@ -87,12 +87,12 @@ export const instanciar_modify_pet_page = () => {
       addListeners() {
         const $ = (selector: `.${any}`) => this.querySelector(selector);
         const form = $(".form");
-
+        const token = state.getUserData().token;
+        const petId = state.getPetToModifyId();
         const getOneFormData = (event: Event, inputName: string) => {
           return event.target[inputName].value;
         };
-        const token = state.getUserData().token;
-        const petId = state.getPetToModifyId();
+        
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
           const last_location = getOneFormData(e, "last_location");
