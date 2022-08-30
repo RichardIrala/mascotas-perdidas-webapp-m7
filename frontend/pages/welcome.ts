@@ -17,12 +17,13 @@ export const instanciar_welcome_page = () => {
         this.innerHTML = `
             <header-el></header-el>
             <div class="marco-del-mapa">
+              <button class="absolute-position"><a href="#petCardsContainer">Ir debajo del mapa</a></button>
               <div id="mapboxmap" style="width: 100%; height: 800px"></div>
             </div>
             <div class="title-container">
                 <title-el>Mascotas perdidas cerca tuyo</title-el>
             </div>
-            <div class="pet-cards">
+            <div class="pet-cards" id="petCardsContainer">
                 
             </div>
             <div class="padding-b20">
@@ -30,10 +31,18 @@ export const instanciar_welcome_page = () => {
             </div>     
         `;
         style.innerHTML = `
+        * {
+          scroll-behavior: smooth
+        }
+
         .marco-del-mapa {
           
         }
-        
+        .absolute-position {
+          position: absolute;
+          margin: 10px;
+          z-index: 150;
+        }
         .title-container {
             display: flex;
             justify-content: center;
