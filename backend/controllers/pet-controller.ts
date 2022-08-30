@@ -119,11 +119,12 @@ export const petFounded = async (id: number, UserId: number) => {
 export const modifyPetInfo = async (
   UserId: number,
   PetId: number,
-  { last_location, lat, lng, name }
+  { last_location, lat, lng, name, pictureURL }
 ) => {
   try {
+    const newPic = await uploadImage(pictureURL);
     const pet = await Pet.update(
-      { last_location, lat, lng, name },
+      { last_location, lat, lng, name, pictureURL: newPic },
       { where: { UserId, id: PetId } }
     );
 
