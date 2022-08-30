@@ -3,7 +3,7 @@ import { api } from "../utils/api";
 
 export const instanciar_pet_card = () => {
   const foundedIcon = require("../assets/ok-icon.svg");
-  const editIcon = require("../assets/edit-icon.svg");
+  const editIcon = require("../assets/edit-icon2.svg");
   customElements.define(
     "pet-card-el",
     class extends HTMLElement {
