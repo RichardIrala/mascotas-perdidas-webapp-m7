@@ -82,25 +82,18 @@ app.get("/users/me", authMiddleware, async (req, res) => {
 //EDNPOINTS DE MASCOTAS
 app.post("/pets", authMiddleware, async (req, res) => {
   const UserId = req._userId;
-  const { name, last_location, lat, lng, description, pictureURL } = req.body;
-  if (lat > 90 || lat < -90 || lng < -180 || lng > 180) {
-    res.json({
-      message:
-        "Los valores para la latitud y la longitud solo pueden ser desde -90 > latitud < 90 y -180 < longitud < 180.",
-    });
-    return;
-  }
+  const { name, last_location, lat, lng, description, pictureURL: longPictureURL } = req.body;
+
   try {
     //Devuelve la nueva mascota
-    let pet = await newPet(
-      UserId,
+    let pet = await newPet(UserId, {
       name,
-      pictureURL,
+      longPictureURL,
       last_location,
       lat,
       lng,
-      description
-    );
+      description,
+    });
     res.json(pet);
   } catch (error) {
     res.status(500).json({ message: error.message });

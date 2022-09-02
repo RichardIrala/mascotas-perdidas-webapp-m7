@@ -2,6 +2,15 @@ import { cloudinary } from "../lib/cloudinary";
 import { Pet } from "../models/index";
 import { indexAlgolia } from "../lib/algolia";
 
+type petData = {
+  name: string,
+  longPictureURL: string,
+  last_location: string,
+  lat: number,
+  lng: number,
+  description?: string
+}
+
 //Subida de imagen a Cloudinary
 const uploadImage = async (pictureURL: string) => {
   if (pictureURL) {
@@ -15,17 +24,16 @@ const uploadImage = async (pictureURL: string) => {
 };
 
 //Creación de una nueva mascota a los reportes
-export const newPet = async (
-  UserId: number,
-  name: string,
-  longPictureURL: string,
-  last_location: string,
-  lat: number,
-  lng: number,
-  description?: string
-) => {
+export const newPet = async (UserId: number, petData: petData) => {
   try {
+    const { name, longPictureURL, last_location, lat, lng, description } = petData;
     const pictureURL = await uploadImage(longPictureURL);
+    if (lat > 90 || lat < -90 || lng < -180 || lng > 180) {
+      return {
+        message:
+          "Los valores para la latitud y la longitud solo pueden ser desde -90 > latitud < 90 y -180 < longitud < 180.",
+      }
+    }
     const pet = await Pet.create({
       UserId,
       name,
@@ -33,7 +41,7 @@ export const newPet = async (
       last_location,
       lat,
       lng,
-      description,
+      description: description ? description : "No description",
     });
     console.log(pet, "Se ha creado la mascota nueva");
 
