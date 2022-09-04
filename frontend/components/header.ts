@@ -70,7 +70,7 @@ export const instanciar_header = () => {
        .menu-burger-container {
          display: flex;
          gap: 20px;
-         z-index: 100;
+         z-index: 200;
        }
 
        @media (max-width: 900px) {
@@ -80,7 +80,7 @@ export const instanciar_header = () => {
             align-items: center;
             justify-content: space-between;
             padding: 15vh 0;
-            background: rgba(0,255,255,0.9);
+            background: #0dc1c1e6;
             min-width: 100%;
             min-height: 100vh;
             position: absolute;
