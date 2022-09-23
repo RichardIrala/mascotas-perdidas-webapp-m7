@@ -1,5 +1,6 @@
 import * as express from "express";
 import * as path from "path";
+import * as cors from "cors"
 import { auth, changePassword, getMe, token } from "../controllers/Auth";
 import { sendEmailReport } from "../controllers/email-controller";
 import {
@@ -17,7 +18,7 @@ import { authMiddleware } from "../middlewares/authMiddleware";
 export const app = express();
 
 const frontend = path.resolve(__dirname, "../../dist");
-
+app.use(cors())
 app.use(express.json({ limit: "20mb" }));
 app.use(express.static(frontend));
 
