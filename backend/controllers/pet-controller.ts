@@ -163,12 +163,19 @@ export const modifyPetInfo = async (
         lng,
       },
     };
-    const newLocationAlgolia = await indexAlgolia
-      .saveObject(record)
-      .wait()
-      .catch((err) => err);
 
-    if (pet[0] == 1 && newLocationAlgolia.objectID == PetId) {
+    const newLocationAlgolia = lat && lng 
+    ? await indexAlgolia
+        .saveObject(record)
+        .wait()
+        .catch((err) => err) 
+    : "paso no necesario";
+
+    if (
+      pet[0] == 1 &&
+      (newLocationAlgolia.objectID == PetId ||
+        newLocationAlgolia === "paso no necesario")
+    ) {
       console.log(newLocationAlgolia);
       return { message: "Datos actualizados" };
     } else {
@@ -186,3 +193,12 @@ function petsOfIds(algoliaData: any[], allPets: any[]) {
   });
   return pets;
 }
+
+export const getPetForId = async (petId: number) => {
+  try {
+    const petFound = await Pet.findOne({ where: { id: petId } });
+    return petFound;
+  } catch (error) {
+    return { message: error.message };
+  }
+};
