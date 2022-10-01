@@ -1,9 +1,10 @@
 import * as express from "express";
 import * as path from "path";
-import * as cors from "cors"
+import * as cors from "cors";
 import { auth, changePassword, getMe, token } from "../controllers/Auth";
 import { sendEmailReport } from "../controllers/email-controller";
 import {
+  getPetForId,
   getPets,
   getPetsCercaDe,
   modifyPetInfo,
@@ -18,7 +19,7 @@ import { authMiddleware } from "../middlewares/authMiddleware";
 export const app = express();
 
 const frontend = path.resolve(__dirname, "../../dist");
-app.use(cors())
+app.use(cors());
 app.use(express.json({ limit: "20mb" }));
 app.use(express.static(frontend));
 
@@ -83,7 +84,14 @@ app.get("/users/me", authMiddleware, async (req, res) => {
 //EDNPOINTS DE MASCOTAS
 app.post("/pets", authMiddleware, async (req, res) => {
   const UserId = req._userId;
-  const { name, last_location, lat, lng, description, pictureURL: longPictureURL } = req.body;
+  const {
+    name,
+    last_location,
+    lat,
+    lng,
+    description,
+    pictureURL: longPictureURL,
+  } = req.body;
 
   try {
     //Devuelve la nueva mascota
@@ -109,12 +117,12 @@ app.get("/pets", async (req, res) => {
 app.get("/pets/cerca-de", async (req, res) => {
   const { lat, lng } = req.query;
   const pets = await getPetsCercaDe(lat, lng);
-  console.log(pets);
   res.json(pets);
 });
 
 app.get("/pets/reported-by-user", authMiddleware, async (req, res) => {
   const UserId = req._userId;
+  console.log(UserId)
   try {
     const pets = await petsReportedBy(UserId);
     res.json(pets);
@@ -122,6 +130,15 @@ app.get("/pets/reported-by-user", authMiddleware, async (req, res) => {
     res.json({ error: error.message });
   }
 });
+
+app.get("/pets/:id", async (req, res) => {
+  const { id } = req.params;
+  const pet = await getPetForId(id);
+  res.json(pet);
+});
+
+
+
 
 app.post("/pets/:petId/founded", authMiddleware, async (req, res) => {
   try {
